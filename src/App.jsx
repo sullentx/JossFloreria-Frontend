@@ -1,5 +1,9 @@
 import React from 'react';
 import Header from './components/layout/header';
+
+
+import SignInPage from './components/pages/Sign-in';
+
 import Footer from './components/layout/footer';
 import Home from './components/pages/Home';
 
@@ -8,7 +12,7 @@ function App() {
     <div className="App">
       <Header />
       {
-        <Home />
+
       }
       <Footer />
     </div>

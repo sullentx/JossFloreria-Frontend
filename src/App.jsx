@@ -1,29 +1,16 @@
 import React from 'react';
-import Header from './components/layout/header';
-import './App.css';
-import AboutUsSection from './components/organims/AboutUsSection';
-
-
-
-import SignInPage from './components/pages/Sign-in';
-
-import Footer from './components/layout/footer';
-import Home from './components/pages/Home';
-
-
-function App() {
+import { Outlet } from 'react-router-dom';
+import Footer from './components/layout/footer'; 
+import Header from './components/layout/header/index';
+const App = () => {
   return (
-    <div className="App">
+    <div>
       <Header />
-   <main>
-    <AboutUsSection/>
-   </main>
-      {
-
-      }
+      <Outlet />
       <Footer />
     </div>
+
   );
-}
+};
 
 export default App;

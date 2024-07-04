@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginOrganism from '../Organisms/sign-in-organism';
+import LoginOrganism from '../Organisms/loginOrganims';
 import './loginTemplate.css'
 const LoginTemplate = ({ onSubmit }) => {
   return (

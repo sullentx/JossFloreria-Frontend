@@ -8,7 +8,8 @@ const Home = () => {
     <div className="home-container">
       <Carousel />
       <div className="button-container">
-        <Button type="button" onClick={() => alert('Ver catálogo')}>Ver catálogo</Button>
+        <Button type="button" 
+        onClick={() => alert('Ver catálogo')}>Ver catálogo</Button>
       </div>
     </div>
   );

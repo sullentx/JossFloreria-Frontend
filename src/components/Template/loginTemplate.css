@@ -1,0 +1,7 @@
+/* Asegúrate de que la plantilla ocupe toda la altura de la ventana y centre el contenido */
+.login-template {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

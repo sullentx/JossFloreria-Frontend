@@ -1,0 +1,8 @@
+/* Asegúrate de que la página ocupe toda la altura de la ventana y centre el contenido */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  

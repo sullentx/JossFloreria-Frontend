@@ -10,9 +10,9 @@ const Header = () => {
       </div>
       <NavBar />
       <div className="header-icons">
-        <i className="fas fa-search"></i>
-        <i className="fas fa-heart"></i>
-        <i className="fas fa-shopping-cart"></i>
+        <img src="/src/assets/icons/search_N.png" alt="Buscar" className="header-icon" />
+        <img src="/src/assets/icons/login_N.png" alt="Iniciar sesion" className="header-icon" />
+        <img src="/src/assets/icons/shopping_cart_N.png" alt="Carrito" className="header-icon" />
       </div>
     </header>
   );

@@ -5,7 +5,6 @@ import './loginPage.css'
 const LoginPage = () => {
   const handleLogin = (data) => {
     console.log('Login data:', data);
-    // Aquí puedes manejar la lógica del login, como hacer una petición a tu API
   };
 
   return (

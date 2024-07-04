@@ -1,14 +1,14 @@
 .header {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center; 
-  background-color: #eacaff;
+  background-color: #E1C6FF;
   padding: 10px 20px;
-  position: fixed;
-  width: 100%;
+  position: fixed; 
+  width: 100%; 
   top: 0;
   z-index: 1000; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .header-logo {
@@ -29,7 +29,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  justify-content: center; 
+  justify-content: center;
   width: 100%; 
 }
 
@@ -47,12 +47,12 @@
   align-items: center;
   justify-content: flex-end; 
   position: absolute; 
-  right: 20px; 
+  right: 80px;
   top: 10px; 
 }
 
-.header-icons i {
+.header-icon {
   margin-left: 15px;
-  font-size: 1.5em;
+  width: 24px; 
   cursor: pointer;
 }

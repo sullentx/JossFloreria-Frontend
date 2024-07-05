@@ -4,16 +4,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/pages/Home';
 import AboutUsSection from './components/pages/AboutUsPage'; // Asegúrate de que la ruta es correcta
 import App from './App';
-import LoginPage from './components/pages/Login-Page';
+import LoginPage from './components/pages/LoginPage';
 import SignInPage from './components/pages/Sign-in-page';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App />, 
     children: [
       {
-        path: 'home',
-        element: <Home />,
+        path:'/',
+        element:<Home/>
       },
       {
         path: 'acerca-de-nosotros',

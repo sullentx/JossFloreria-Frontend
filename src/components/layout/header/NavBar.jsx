@@ -4,11 +4,12 @@ import NavItem from './NavItem';
 
 const NavBar = () => {
   const navItems = [
-    { href: '#about', label: 'Acerca de Nosotros' },
+    { href: 'acerca-de-nosotros', label: 'Acerca de Nosotros' },
     { href: '#shop', label: 'Comprar ahora' },
-    { href: '#home', label: 'Inicio' },
-    { href: '#catalog', label: 'Catalogo' },
+    { href: '/', label: 'Inicio' },
+    { href: 'catalogo', label: 'Catalogo' },
     { href: '#custom', label: 'Arma tu Ramo' }
+    
   ];
 
   return (

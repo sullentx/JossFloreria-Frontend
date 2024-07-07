@@ -5,6 +5,7 @@ import Home from './components/pages/Home';
 import AboutUsSection from './components/pages/AboutUsPage'; 
 import App from './App';
 import LoginPage from './components/pages/Login-Page'
+import LoginPage from './components/pages/LoginPage';
 import SignInPage from './components/pages/Sign-in-page';
 import AdminInventory from './components/pages/AdminInventory';
 import AdminDeliveryMan from './components/pages/AdminDeliveryMan';

@@ -1,14 +1,13 @@
-// src/components/layout/header/NavBar.jsx
 import React from 'react';
 import NavItem from './NavItem';
 
 const NavBar = () => {
   const navItems = [
-    { href: '#about', label: 'Acerca de Nosotros' },
-    { href: '#shop', label: 'Comprar ahora' },
-    { href: '#home', label: 'Inicio' },
-    { href: '#catalog', label: 'Catalogo' },
-    { href: '#custom', label: 'Arma tu Ramo' }
+    { href: '/acerca-de-nosotros', label: 'Acerca de Nosotros' },
+    { href: '#shop', label: 'Comprar ahora' }, 
+    { href: '/', label: 'Inicio' },
+    { href: '/catalogo', label: 'Catálogo' },
+    { href: '#custom', label: 'Arma tu Ramo' } 
   ];
 
   return (

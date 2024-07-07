@@ -1,14 +1,16 @@
 .header {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   background-color: #E1C6FF;
-  padding: 10px 20px;
+  padding: 10px 0;
   position: fixed; 
   width: 100%; 
+  left: 0; 
   top: 0;
   z-index: 1000; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  box-sizing: border-box;
 }
 
 .header-logo {
@@ -30,7 +32,7 @@
   margin: 0;
   padding: 0;
   justify-content: center;
-  width: 100%; 
+  width: 100%;
 }
 
 .nav-item {
@@ -45,14 +47,13 @@
 .header-icons {
   display: flex;
   align-items: center;
-  justify-content: flex-end; 
   position: absolute; 
-  right: 80px;
-  top: 10px; 
+  right: 20px; 
+  top: 10px;
 }
 
 .header-icon {
   margin-left: 15px;
-  width: 24px; 
+  width: 24px;
   cursor: pointer;
 }

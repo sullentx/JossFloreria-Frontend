@@ -1,5 +1,5 @@
 import React from "react";
-import Title from "../atoms/TitleAboutUs";
+import Title from "../atoms/Title/TitleAboutUs";
 import './ImageWithTitleAboutUs.css'
 
 

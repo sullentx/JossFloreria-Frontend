@@ -9,6 +9,7 @@ import image2 from '../../assets/carousel_imgs/image2.jpg';
 import image3 from '../../assets/carousel_imgs/image3.jpg';
 import ejm from '../../assets/carousel_imgs/ejm.jpg';
 
+
 const images = [
     image1,
     image2,

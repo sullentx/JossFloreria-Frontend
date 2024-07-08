@@ -1,6 +1,6 @@
 import React from "react";
 import ImageWithTitleAboutUs from "../molecules/ImageWithTitleAboutUs";
-import Text from "../atoms/TextAboutUs";
+import Text from "../atoms/Text/TextAboutUs";
 import imagen from "../../assets/images/imagen-AcercadeNosotros.jpg"
 import './AboutUsSection.css'
 

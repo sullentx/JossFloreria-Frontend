@@ -1,9 +1,15 @@
+
 import React from 'react';
 import NavItem from './NavItem';
 
 const NavBar = () => {
   const navItems = [
 
+    { href: 'acerca-de-nosotros', label: 'Acerca de Nosotros' },
+    { href: 'Comprar-ahora', label: 'Comprar ahora' },
+    { href: '/', label: 'Inicio' },
+    { href: 'catalogo', label: 'Catalogo' },
+    { href: '#custom', label: 'Arma tu Ramo' }
     { href: '/acerca-de-nosotros', label: 'Acerca de Nosotros' },
     { href: '#shop', label: 'Comprar ahora' }, 
     { href: '/', label: 'Inicio' },

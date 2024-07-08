@@ -11,6 +11,8 @@ const Header = () => {
         <h1>Joss Floreria</h1>
       </div>
       <NavBar />
+      <div className="header-icons" data-animation="diagonal">
+        <img src="/src/assets/icons/search_N.png" alt="Buscar" className="header-icon" />
       <div className="header-icons">
 
         <Link to="/buscar">

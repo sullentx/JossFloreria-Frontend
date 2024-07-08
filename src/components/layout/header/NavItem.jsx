@@ -3,7 +3,7 @@ import React from 'react';
 
 const NavItem = ({ href, label }) => {
   return (
-    <li className="nav-item">
+    <li className="nav-item" data-animation="hover">
       <a href={href}>{label}</a>
     </li>
   );

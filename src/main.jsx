@@ -6,14 +6,15 @@ import AboutUsSection from './components/pages/AboutUsPage'; // Asegúrate de qu
 import App from './App';
 import LoginPage from './components/pages/Login-Page';
 import SignInPage from './components/pages/Sign-in-page';
+import BuyNowPage from './components/pages/BuyNowPage';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App />, 
     children: [
       {
-        path: 'home',
-        element: <Home />,
+        path:'/',
+        element:<Home/>
       },
       {
         path: 'acerca-de-nosotros',
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'Comprar-ahora',
+        element: <BuyNowPage />,
       },
     ],
   },

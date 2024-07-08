@@ -22,6 +22,13 @@ const SignInForm = ({ onSubmit }) => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
+        <Input
+        type="text"
+        name="text"
+        placeholder="Nombre"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <Input
         type="password"
         name="password"

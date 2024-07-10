@@ -4,12 +4,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/pages/Home';
 import AboutUsSection from './components/pages/AboutUsPage'; 
 import App from './App';
-import LoginPage from './components/pages/Login-Page'
 import LoginPage from './components/pages/LoginPage';
 import SignInPage from './components/pages/Sign-in-page';
 import BuyNowPage from './components/pages/BuyNowPage';
 import AdminInventory from './components/pages/AdminInventory';
 import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
+import ReservedProducts from './components/pages/ReservedProducts';
+import FavouriteProducts from './components/pages/FavouriteProducts';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -34,12 +35,22 @@ const router = createBrowserRouter([
       {
         path: 'Comprar-ahora',
         element: <BuyNowPage />,
+      },
+      {
         path: 'admin-inventory',
         element: <AdminInventory />,
       },
       {
         path: 'admin-deliveryman',
         element: <AdminDeliveryMan />,
+      },
+      {
+        path: 'reserved-products',
+        element: <ReservedProducts />,
+      },
+      {
+        path: 'favourite-products',
+        element: <FavouriteProducts />,
       },
     ],
   },

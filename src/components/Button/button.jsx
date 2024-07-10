@@ -1,9 +1,13 @@
 import React from 'react';
-import './button.css'
-const Button = ({ type, onClick, children }) => {
+import './button.css';
+
+const Button = ({ type, onClick, children, className }) => {
   return (
-    <button className= 'button'
-    type={type} onClick={onClick}>
+    <button
+      className={`button ${className}`}
+      type={type}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

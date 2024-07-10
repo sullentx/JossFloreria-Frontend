@@ -4,7 +4,8 @@
     border-radius: 10px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: #fff; /* Fondo blanco para contraste */
+    background-color: #fff; 
+    margin-top: 200px;
   }
   
   .sign-in-organism:hover {

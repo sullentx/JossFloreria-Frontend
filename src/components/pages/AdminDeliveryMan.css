@@ -1,9 +1,14 @@
 .admin-deliveryman {
-    margin-top: 100px; 
-    padding: 20px;     
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 200px; 
+  text-align: center;
   }
-  
+  .admin-deliveryman > button {
+    margin-top: 20px;
+  }
   .empty-deliveryman {
     font-size: 1.5em;  
     color: #555;       

@@ -10,7 +10,6 @@ const FavouriteProducts = () => {
     const fetchProducts = async () => {
       const fetchedProducts = [
         { id: 1, name: 'Producto Favorito 1', price: 100 },
-        { id: 2, name: 'Producto Favorito 2', price: 150 },
       ];
       setProducts(fetchedProducts);
     };

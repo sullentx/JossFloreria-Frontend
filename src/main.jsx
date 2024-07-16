@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/pages/Home';
 import AboutUsSection from './components/pages/AboutUsPage';
 import App from './App';
+import SearchPage from './components/pages/SearchPage';
 import LoginPage from './components/pages/LoginPage';
 import SignInPage from './components/pages/Sign-in-page';
 import BuyNowPage from './components/pages/BuyNowPage';
@@ -12,6 +13,7 @@ import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
 import AdminBackorders from './components/pages/AdminBackorders';
 import ReservedProducts from './components/pages/ReservedProducts';
 import FavouriteProducts from './components/pages/FavouriteProducts';
+import NotFound from './components/pages/NotFound';
 import Catalog from './components/pages/Catalog';
 import MakeYourBouquet from './components/pages/MakeYourBouquet';
 
@@ -19,6 +21,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement:<NotFound/>,
     children: [
       {
         path: '/',
@@ -61,6 +64,8 @@ const router = createBrowserRouter([
         element: <FavouriteProducts />,
       },
       {
+        path: 'search',
+        element: <SearchPage />,
         path: 'catalog',
         element: <Catalog />,
       },

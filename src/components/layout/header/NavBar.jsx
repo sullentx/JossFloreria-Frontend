@@ -8,8 +8,8 @@ const NavBar = () => {
     { href: 'acerca-de-nosotros', label: 'Acerca de Nosotros' },
     { href: 'Comprar-ahora', label: 'Comprar ahora' },
     { href: '/', label: 'Inicio' },
-    { href: 'catalogo', label: 'Catalogo' },
-    { href: '#custom', label: 'Arma tu Ramo' }
+    { href: 'catalog', label: 'Catalogo' },
+    { href: 'custom', label: 'Arma tu Ramo' }
 
   ];
 

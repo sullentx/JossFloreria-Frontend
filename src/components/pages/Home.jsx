@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Carousel from '../Carousel/Carousel';
 import Button from '../Button/button';
 import './Home.css';
@@ -8,8 +9,11 @@ const Home = () => {
     <div className="home-container">
       <Carousel />
       <div className="button-container">
-        <Button type="button" 
-        onClick={() => alert('Ver catálogo')}>Ver catálogo</Button>
+        <Link to="/catalog">
+          <Button type="button">
+            Ver catálogo
+          </Button>
+        </Link>
       </div>
     </div>
   );

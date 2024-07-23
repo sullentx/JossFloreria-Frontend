@@ -5,9 +5,6 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async () => {
-    // Aquí podrías realizar una llamada a API o filtrar localmente dependiendo de tu implementación
-    // Ejemplo básico de búsqueda local:
-    // Suponiendo que tienes una lista de datos en state `allData`
     const filteredResults = allData.filter(item =>
       item.name.toLowerCase().includes(query.toLowerCase())
     );
@@ -25,11 +22,10 @@ const SearchPage = () => {
       />
       <button onClick={handleSearch}>Buscar</button>
 
-      {/* Mostrar los resultados de la búsqueda */}
+      {}
       <ul>
         {searchResults.map(result => (
           <li key={result.id}>{result.name}</li>
-          // Aquí podrías mostrar más detalles dependiendo de tus datos
         ))}
       </ul>
     </div>

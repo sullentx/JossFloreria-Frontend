@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './SearchBar.css';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -8,14 +10,17 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <div className="search-container">
       <input
         type="text"
         value={searchTerm}
         onChange={handleChange}
         placeholder="Buscando..."
+        className="search-input"
       />
-      <p>Estas buscando: {searchTerm}</p>
+      <Link to={`/buscar?query=${searchTerm}`}>
+        <img src="/src/assets/icons/search_N.png" alt="Buscar" className="header-icon" />
+      </Link>
     </div>
   );
 };

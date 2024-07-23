@@ -8,20 +8,22 @@ import SearchPage from './components/pages/SearchPage';
 import LoginPage from './components/pages/LoginPage';
 import SignInPage from './components/pages/Sign-in-page';
 import BuyNowPage from './components/pages/BuyNowPage';
-import AdminInventory from './components/pages/AdminInventory';
-import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
 import ReservedProducts from './components/pages/ReservedProducts';
 import FavouriteProducts from './components/pages/FavouriteProducts';
 import NotFound from './components/pages/NotFound';
+import AdminPage from './components/pages/AdminPage';
+import DeliveryPage from './components/pages/DeliveryPage';
+import { AuthProvider } from './context/AuthContext';
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement:<NotFound/>,
+    errorElement: <NotFound />,
     children: [
       {
-        path:'/',
-        element:<Home/>
+        path: '/',
+        element: <Home />
       },
       {
         path: 'acerca-de-nosotros',
@@ -40,14 +42,6 @@ const router = createBrowserRouter([
         element: <BuyNowPage />,
       },
       {
-        path: 'admin-inventory',
-        element: <AdminInventory />,
-      },
-      {
-        path: 'admin-deliveryman',
-        element: <AdminDeliveryMan />,
-      },
-      {
         path: 'reserved-products',
         element: <ReservedProducts />,
       },
@@ -59,12 +53,22 @@ const router = createBrowserRouter([
         path: 'search',
         element: <SearchPage />,
       },
+      {
+        path: 'admin',
+        element: <AdminPage />,
+      },
+      {
+        path: 'delivery',
+        element: <DeliveryPage />,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

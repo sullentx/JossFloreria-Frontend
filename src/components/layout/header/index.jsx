@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
+import SearchBar from '../../SearchBar/SearchBar';
 import './index.css';
 
 const Header = () => {
@@ -11,9 +12,7 @@ const Header = () => {
       </div>
       <NavBar />
       <div className="header-icons" data-animation="diagonal">
-        <Link to="/buscar">
-          <img src="/src/assets/icons/search_N.png" alt="Buscar" className="header-icon" />
-        </Link>
+        <SearchBar />
         <Link to="/login">
           <img src="/src/assets/icons/login_N.png" alt="Iniciar sesion" className="header-icon" />
         </Link>

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import './productItem.css';
 import Input from '../Input/input';
+import { AuthContext } from '../../context/AuthContext';
 
 const ProductItem = ({ product, onSave, onDelete }) => {
+  const { token } = useContext(AuthContext);
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price);
   const [units, setUnits] = useState(product.units);
@@ -24,7 +26,7 @@ const ProductItem = ({ product, onSave, onDelete }) => {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!name || !price || !units || !image) {
       MySwal.fire({
         icon: 'error',
@@ -34,7 +36,36 @@ const ProductItem = ({ product, onSave, onDelete }) => {
       return;
     }
 
-    onSave({ ...product, name, price, units, image });
+    const updatedProduct = { ...product, name, price, units, image };
+
+    try {
+      const response = await fetch(`/api/products/${product.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedProduct)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      MySwal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'El producto ha sido actualizado con éxito.',
+      });
+      onSave(result);
+    } catch (error) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `Hubo un problema al guardar el producto: ${error.message}`,
+      });
+    }
   };
 
   return (

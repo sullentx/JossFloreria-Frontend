@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/pages/Home';
-import AboutUsSection from './components/pages/AboutUsPage'; 
+import AboutUsSection from './components/pages/AboutUsPage';
 import App from './App';
 import SearchPage from './components/pages/SearchPage';
 import LoginPage from './components/pages/LoginPage';
@@ -14,6 +14,14 @@ import NotFound from './components/pages/NotFound';
 import AdminPage from './components/pages/AdminPage';
 import DeliveryPage from './components/pages/DeliveryPage';
 import { AuthProvider } from './context/AuthContext';
+import AdminInventory from './components/pages/AdminInventory';
+import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
+import AdminBackorders from './components/pages/AdminBackorders';
+import ReservedProducts from './components/pages/ReservedProducts';
+import FavouriteProducts from './components/pages/FavouriteProducts';
+import NotFound from './components/pages/NotFound';
+import Catalog from './components/pages/Catalog';
+import MakeYourBouquet from './components/pages/MakeYourBouquet';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +50,18 @@ const router = createBrowserRouter([
         element: <BuyNowPage />,
       },
       {
+        path: 'admin-inventory',
+        element: <AdminInventory />,
+      },
+      {
+        path: 'admin-deliveryman',
+        element: <AdminDeliveryMan />,
+      },
+      {
+        path: 'admin-backorders',
+        element: <AdminBackorders />,
+      },
+      {
         path: 'reserved-products',
         element: <ReservedProducts />,
       },
@@ -52,6 +72,12 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <SearchPage />,
+        path: 'catalog',
+        element: <Catalog />,
+      },
+      {
+        path: 'custom',
+        element: <MakeYourBouquet />,
       },
       {
         path: 'admin',

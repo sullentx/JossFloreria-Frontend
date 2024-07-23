@@ -1,0 +1,85 @@
+.make-your-bouquet {
+  padding: 20px;
+  margin-top: 200px;
+}
+
+.selection-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;  
+  margin-bottom: 20px;
+}
+
+.selection-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+  cursor: pointer;
+  padding: 40px; 
+  width: 150px;  
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.selection-card img {
+  width: 100%;
+  height: auto;
+}
+
+.selection-card.selected {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.selection-card.not-selected {
+  opacity: 0.5;
+}
+
+.flower-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.flower-option {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 20px;  
+  width: 350px; 
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.flower-option img {
+  width: 100%;
+  height: auto;
+}
+
+.flower-option.selected {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.flower-option.not-selected {
+  opacity: 0.5;
+}
+
+.flower-details {
+  padding: 10px 0;
+}
+
+.add-to-cart-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button {
+  padding: 8px 16px;  
+  font-size: 0.875rem;  
+}

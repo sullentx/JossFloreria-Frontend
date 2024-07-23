@@ -8,6 +8,12 @@ import SearchPage from './components/pages/SearchPage';
 import LoginPage from './components/pages/LoginPage';
 import SignInPage from './components/pages/Sign-in-page';
 import BuyNowPage from './components/pages/BuyNowPage';
+import ReservedProducts from './components/pages/ReservedProducts';
+import FavouriteProducts from './components/pages/FavouriteProducts';
+import NotFound from './components/pages/NotFound';
+import AdminPage from './components/pages/AdminPage';
+import DeliveryPage from './components/pages/DeliveryPage';
+import { AuthProvider } from './context/AuthContext';
 import AdminInventory from './components/pages/AdminInventory';
 import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
 import AdminBackorders from './components/pages/AdminBackorders';
@@ -21,7 +27,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement:<NotFound/>,
+    errorElement: <NotFound />,
     children: [
       {
         path: '/',
@@ -73,12 +79,22 @@ const router = createBrowserRouter([
         path: 'custom',
         element: <MakeYourBouquet />,
       },
+      {
+        path: 'admin',
+        element: <AdminPage />,
+      },
+      {
+        path: 'delivery',
+        element: <DeliveryPage />,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

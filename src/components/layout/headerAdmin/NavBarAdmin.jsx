@@ -1,13 +1,12 @@
-
 import React from 'react';
-import NavItem from './NavItem';
+import NavItem from '../header/NavItem';
+import './NavBarAdmin.css'; 
 
 const NavBarAdmin = () => {
   const navItems = [
-    { href: 'admin/inventario', label: 'Inventario' },
-    { href: 'admin/pedidos', label: 'Pedidos Pendientes' },
-    { href: 'admin', label: 'Inicio' },
-
+    { href: '/admin', label: 'Inicio' },
+    { href: '/admin/inventario', label: 'Inventario' },
+    { href: '/admin/pedidos', label: 'Pedidos Pendientes' },
   ];
 
   return (
@@ -20,4 +19,3 @@ const NavBarAdmin = () => {
 };
 
 export default NavBarAdmin;
-

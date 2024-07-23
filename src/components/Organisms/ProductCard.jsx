@@ -16,6 +16,31 @@ const ProductCard = ({ product }) => {
         setQuantity(event.target.value);
     };
 
+    const handleBuy = async () => {
+        try {
+            const response = await fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    productId: product.id,
+                    quantity,
+                    date: selectedDate
+                })
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            alert('Compra realizada con éxito');
+        } catch (error) {
+            console.error('Error realizando la compra:', error);
+            alert('Error realizando la compra');
+        }
+    };
+
     return (
         <div className="product-card">
             <div className="product-left">
@@ -34,9 +59,9 @@ const ProductCard = ({ product }) => {
                             onChange={handleDateChange}
                             dateFormat="dd/MM/yyyy"
                             placeholderText="Seleccionar fecha"
-                          className="custom-datepicker"
+                            className="custom-datepicker"
                         />
-                        </div>
+                    </div>
                     </label>
                 </div>
                 <div className="product-quantity">
@@ -50,7 +75,7 @@ const ProductCard = ({ product }) => {
                         />
                     </label>
                 </div>
-                <Button text="Comprar" onClick={() => product.onBuy(quantity)}>Comprar</Button>
+                <Button text="Comprar" onClick={handleBuy}>Comprar</Button>
             </div>
         </div>
     );

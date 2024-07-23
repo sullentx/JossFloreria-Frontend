@@ -1,60 +1,99 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import ProductItem from '../Organisms/productItem';
-import Button from '../Button/button';
-import './AdminInventory.css';
+import './productItem.css';
+import Input from '../Input/input';
+import { AuthContext } from '../../context/AuthContext';
 
-const AdminInventory = () => {
-  const [products, setProducts] = useState([]);
+const ProductItem = ({ product, onSave, onDelete }) => {
+  const { token } = useContext(AuthContext);
+  const [name, setName] = useState(product.name);
+  const [price, setPrice] = useState(product.price);
+  const [units, setUnits] = useState(product.units);
+  const [image, setImage] = useState(product.image);
   const MySwal = withReactContent(Swal);
 
-  const handleAddProduct = () => {
-    setProducts([...products, { id: Date.now(), name: '', price: '', units: '', image: null }]);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size <= 300 * 300) {
+      setImage(URL.createObjectURL(file));
+    } else {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La imagen debe ser de 300x300 píxeles.',
+      });
+    }
   };
 
-  const handleSaveProduct = (index, updatedProduct) => {
-    const newProducts = [...products];
-    newProducts[index] = updatedProduct;
-    setProducts(newProducts);
-  };
+  const handleSave = async () => {
+    if (!name || !price || !units || !image) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Todos los campos deben estar llenos.',
+      });
+      return;
+    }
 
-  const handleDeleteProduct = (index) => {
-    MySwal.fire({
-      title: '¿Estás seguro?',
-      text: "No podrás revertir esto!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, bórralo!',
-      cancelButtonText: 'No, cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const newProducts = products.filter((_, i) => i !== index);
-        setProducts(newProducts);
-        MySwal.fire('Borrado!', 'El producto ha sido eliminado.', 'success');
+    const updatedProduct = { ...product, name, price, units, image };
+
+    try {
+      const response = await fetch(`/api/products/${product.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedProduct)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
+
+      const result = await response.json();
+      MySwal.fire({
+        icon: 'success',
+        title: 'Guardado',
+        text: 'El producto ha sido actualizado con éxito.',
+      });
+      onSave(result);
+    } catch (error) {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `Hubo un problema al guardar el producto: ${error.message}`,
+      });
+    }
   };
 
   return (
-    <div className="admin-inventory">
-      {products.length === 0 ? (
-        <p className="empty-inventory">Inventario vacío</p>
-      ) : (
-        products.map((product, index) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            onSave={(updatedProduct) => handleSaveProduct(index, updatedProduct)}
-            onDelete={() => handleDeleteProduct(index)}
-          />
-        ))
-      )}
-     <Button type="button" onClick={handleAddProduct}>Agregar Producto</Button>
+    <div className="product-item">
+      <div className="product-image">
+        {image ? <img src={image} alt="Product" /> : <p>Sin imagen</p>}
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+      </div>
+      <div className="product-details">
+        <label>
+          Nombre:
+          <Input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        </label>
+        <label>
+          Precio:
+          <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+        </label>
+        <label>
+          Unidades:
+          <Input type="number" value={units} onChange={(e) => setUnits(e.target.value)} />
+        </label>
+        <div className="product-actions">
+          <button onClick={handleSave}>Guardar</button>
+          <button onClick={onDelete}>Eliminar Producto</button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default AdminInventory;
+export default ProductItem;

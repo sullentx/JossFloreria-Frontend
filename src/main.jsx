@@ -16,6 +16,8 @@ import FavouriteProducts from './components/pages/FavouriteProducts';
 import NotFound from './components/pages/NotFound';
 import Catalog from './components/pages/Catalog';
 import MakeYourBouquet from './components/pages/MakeYourBouquet';
+import AdminOrder from './components/pages/AdminOrder';
+import DeliveryOrder from './components/pages/DeliveryOrder';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
         element: <AdminBackorders />,
       },
       {
+        path: 'admin-order',
+        element: <AdminOrder />,
+      },
+      {
+        path: 'delivery-order',
+        element: <DeliveryOrder />,
+      },
+      {
         path: 'reserved-products',
         element: <ReservedProducts />,
       },
@@ -66,6 +76,8 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <SearchPage />,
+      },
+      {
         path: 'catalog',
         element: <Catalog />,
       },

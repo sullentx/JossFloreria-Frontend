@@ -1,0 +1,13 @@
+
+.header-icon {
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer; 
+  }
+  
+  .header-icon img {
+    width: 24px; 
+    height: auto;
+  }
+  

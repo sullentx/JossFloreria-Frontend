@@ -9,7 +9,6 @@ const BuyNowPage = () => {
 
     useEffect(() => {
         console.log('Token:', token); 
-        // Fetch product details
         const fetchProductDetails = async () => {
             try {
                 const response = await fetch('/api/product', {

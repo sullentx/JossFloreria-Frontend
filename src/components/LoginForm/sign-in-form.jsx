@@ -19,7 +19,7 @@ const deleted = 0;
 const handleSubmit = async (e) => {
 e.preventDefault();
     try {
-      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer', {
+      const response = await fetch('http://localhost:5000/api/customer', {
         method: 'POST',
         headers: {
               'Content-Type': 'application/json',

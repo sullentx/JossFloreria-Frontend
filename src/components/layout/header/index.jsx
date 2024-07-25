@@ -1,10 +1,15 @@
 import React from 'react';
-import NavBar from './NavBar';
-import { Link } from 'react-router-dom';
-import SearchBar from '../../SearchBar/SearchBar';
+import { Link, useNavigate } from 'react-router-dom';
+import NavBar from './NavBar'; // Importa el componente NavBar
 import './index.css';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleSearchClick = () => {
+    navigate('/search');
+  };
+
   return (
     <header className="header">
       <div className="header-logo">
@@ -12,9 +17,11 @@ const Header = () => {
       </div>
       <NavBar />
       <div className="header-icons" data-animation="diagonal">
-        <SearchBar />
+        <button onClick={handleSearchClick} className="header-icon-button">
+          <img src="/src/assets/icons/search_N.png" alt="buscar" className="header-icon" />
+        </button>
         <Link to="/login">
-          <img src="/src/assets/icons/login_N.png" alt="Iniciar sesion" className="header-icon" />
+          <img src="/src/assets/icons/login_N.png" alt="Iniciar sesión" className="header-icon" />
         </Link>
         <Link to="/reserved-products">
           <img src="/src/assets/icons/shopping_cart_N.png" alt="Carrito" className="header-icon" />

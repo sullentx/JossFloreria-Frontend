@@ -1,33 +1,29 @@
+
 import React, { useState } from 'react';
+import './SearchPage.css'; 
 
 const SearchPage = () => {
   const [query, setQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = async () => {
-    const filteredResults = allData.filter(item =>
-      item.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setSearchResults(filteredResults);
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSearch = () => {
+    console.log('Buscando:', query);
   };
 
   return (
     <div>
-      <h1>Buscar</h1>
+      <h1>Buscar Productos</h1>
       <input
         type="text"
+        placeholder="Buscar..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Ingrese su búsqueda..."
+        onChange={handleInputChange}
       />
       <button onClick={handleSearch}>Buscar</button>
-
       {}
-      <ul>
-        {searchResults.map(result => (
-          <li key={result.id}>{result.name}</li>
-        ))}
-      </ul>
     </div>
   );
 };

@@ -4,6 +4,9 @@ import withReactContent from 'sweetalert2-react-content';
 import ProductItem from '../Organisms/productItem';
 import Button from '../Button/button';
 import './AdminInventory.css';
+import Input from '../Input/input';
+import { AuthContext } from '../../context/AuthContext';
+
 
 const AdminInventory = () => {
   const [products, setProducts] = useState([]);

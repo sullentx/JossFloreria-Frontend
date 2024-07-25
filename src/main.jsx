@@ -19,6 +19,8 @@ import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
 import AdminBackorders from './components/pages/AdminBackorders';
 import Catalog from './components/pages/Catalog';
 import MakeYourBouquet from './components/pages/MakeYourBouquet';
+import AdminOrder from './components/pages/AdminOrder';
+import DeliveryOrder from './components/pages/DeliveryOrder';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
       {
         path: 'admin-backorders',
         element: <AdminBackorders />,
+      },
+      {
+        path: 'admin-order',
+        element: <AdminOrder />,
+      },
+      {
+        path: 'delivery-order',
+        element: <DeliveryOrder />,
       },
       {
         path: 'reserved-products',

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import './productItem.css';
+import './AdminInventory.css';
 import Input from '../Input/input';
 import { AuthContext } from '../../context/AuthContext';
 

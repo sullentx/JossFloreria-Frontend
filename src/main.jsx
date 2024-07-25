@@ -17,9 +17,6 @@ import { AuthProvider } from './context/AuthContext';
 import AdminInventory from './components/pages/AdminInventory';
 import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
 import AdminBackorders from './components/pages/AdminBackorders';
-import ReservedProducts from './components/pages/ReservedProducts';
-import FavouriteProducts from './components/pages/FavouriteProducts';
-import NotFound from './components/pages/NotFound';
 import Catalog from './components/pages/Catalog';
 import MakeYourBouquet from './components/pages/MakeYourBouquet';
 
@@ -72,6 +69,8 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <SearchPage />,
+      },
+      {
         path: 'catalog',
         element: <Catalog />,
       },
@@ -94,7 +93,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>
 );

@@ -4,7 +4,7 @@ import Footer from './components/layout/footer';
 import Header from './components/layout/header';
 import HeaderAdmin from './components/layout/headerAdmin/NavBarAdmin';
 import HeaderDelivery from './components/layout/headerDeliveryman/NavBarDrliveryman';
-import DataContainer from './components/DataContainer/DataContainer';
+
 
 const App = () => {
   const location = useLocation();
@@ -24,7 +24,6 @@ const App = () => {
       {renderHeader()}
       <Outlet />
       <Footer />
-      <DataContainer />
     </div>
   );
 };

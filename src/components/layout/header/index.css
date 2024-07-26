@@ -73,10 +73,17 @@
   top: 10px;
 }
 
+.header-icon-button {
+  background: none;
+  border: none;
+  padding: 0; 
+  cursor: pointer;
+}
+
 .header-icon {
   margin-left: 15px;
   width: 24px;
   cursor: pointer;
-  position: relative;
 }
+
 

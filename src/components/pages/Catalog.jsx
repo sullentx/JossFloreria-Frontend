@@ -12,7 +12,7 @@ const Catalog = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/bouquets');
+        const response = await fetch('https://localhost:5000/api/bouquets');
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }

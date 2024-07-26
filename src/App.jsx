@@ -5,7 +5,6 @@ import Header from './components/layout/header';
 import HeaderAdmin from './components/layout/headerAdmin/NavBarAdmin';
 import HeaderDelivery from './components/layout/headerDeliveryman/NavBarDrliveryman';
 
-
 const App = () => {
   const location = useLocation();
   

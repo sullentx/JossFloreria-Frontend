@@ -1,32 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { useAuth } from '../../context/AuthContext';
 import './productItem.css';
 import Input from '../Input/input';
-import { useAuth } from '../../context/AuthContext';
 
 const ProductItem = ({ product = {}, onSave, onDelete }) => {
+  const { token } = useAuth(); 
+  const MySwal = withReactContent(Swal);
   const [name, setName] = useState(product.name || '');
   const [color, setColor] = useState(product.color || '');
   const [price, setPrice] = useState(product.price || '');
-  const [quantity, setQuantity] = useState(product.price || '');
+  const [quantity, setQuantity] = useState(product.quantity || '');
   const [image_url, setImage_url] = useState(product.image || '');
-  const MySwal = withReactContent(Swal);
-  const { authToken } = useAuth();
-  const [email] = useState('');
-const created_by= email;
-const update_by= email;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.size <= 300 * 300) {
-      setImage_url(URL.createObjectURL(file));
-    } else {
-      MySwal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'La imagen debe ser de 300x300 píxeles.',
-      });
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImage_url(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
     }
   };
 
@@ -45,9 +40,9 @@ const update_by= email;
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`, 
+          'Authorization': `Bearer ${token}`, 
         },
-        body: JSON.stringify({ name, color, price,quantity,created_by,update_by, image_url})
+        body: JSON.stringify({ name, color, price, quantity, image_url})
       });
 
       if (!response.ok) {
@@ -69,7 +64,7 @@ const update_by= email;
       });
     }
   };
-
+  
   return (
     <div className="product-item">
       <div className="product-image">

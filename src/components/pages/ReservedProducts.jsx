@@ -8,17 +8,19 @@ const ReservedProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts = [
-        { id: 1, name: 'Producto 1', price: 100, quantity: 1, image: '/path/to/image1.jpg' },
-        { id: 2, name: 'Producto 2', price: 150, quantity: 1, image: '/path/to/image2.jpg' },
-      ];
-      setProducts(fetchedProducts);
+      try {
+        const response = await fetch('/api/products'); 
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error al obtener productos:', error);
+      }
     };
 
     fetchProducts();
   }, []);
 
-  const handleCancelProduct = (id) => {
+  const handleCancelProduct = async (id) => {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "No podrás revertir esto!",
@@ -28,20 +30,63 @@ const ReservedProducts = () => {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, cancelar!',
       cancelButtonText: 'No, mantener'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        setProducts(products.filter(product => product.id !== id));
-        Swal.fire('Cancelado!', 'El producto ha sido cancelado.', 'success');
+        try {
+          const response = await fetch(`/api/products/${id}`, {
+            method: 'DELETE',
+          });
+
+          if (response.ok) {
+            setProducts(products.filter(product => product.id !== id));
+            Swal.fire('Cancelado!', 'El producto ha sido cancelado.', 'success');
+          } else {
+            Swal.fire('Error!', 'Hubo un problema al cancelar el producto.', 'error');
+          }
+        } catch (error) {
+          console.error('Error al cancelar producto:', error);
+          Swal.fire('Error!', 'Hubo un problema al cancelar el producto.', 'error');
+        }
       }
     });
   };
 
-  const handleBuyProduct = (id) => {
-    Swal.fire('¡Compra realizada!', 'Has comprado el producto.', 'success');
+  const handleBuyProduct = async (id) => {
+    try {
+      const response = await fetch(`/api/products/${id}/buy`, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        Swal.fire('¡Compra realizada!', 'Has comprado el producto.', 'success');
+      } else {
+        Swal.fire('Error!', 'Hubo un problema al comprar el producto.', 'error');
+      }
+    } catch (error) {
+      console.error('Error al comprar producto:', error);
+      Swal.fire('Error!', 'Hubo un problema al comprar el producto.', 'error');
+    }
   };
 
-  const handleBuyAll = () => {
-    Swal.fire('¡Compra realizada!', 'Has comprado todos los productos.', 'success');
+  const handleBuyAll = async () => {
+    try {
+      const response = await fetch('/api/products/buy', {
+        method: 'POST',
+        body: JSON.stringify({ products: products.map(product => product.id) }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        Swal.fire('¡Compra realizada!', 'Has comprado todos los productos.', 'success');
+      } else {
+        Swal.fire('Error!', 'Hubo un problema al comprar los productos.', 'error');
+      }
+    } catch (error) {
+      console.error('Error al comprar todos los productos:', error);
+      Swal.fire('Error!', 'Hubo un problema al comprar los productos.', 'error');
+    }
   };
 
   const total = products.reduce((sum, product) => sum + (product.price * product.quantity), 0);

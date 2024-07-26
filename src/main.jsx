@@ -21,6 +21,7 @@ import Catalog from './components/pages/Catalog';
 import MakeYourBouquet from './components/pages/MakeYourBouquet';
 import AdminOrder from './components/pages/AdminOrder';
 import DeliveryOrder from './components/pages/DeliveryOrder';
+import DeliveryBackorders from './components/pages/DeliveryBackorders';
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: 'delivery-order',
         element: <DeliveryOrder />,
+      },
+      {
+        path: 'delivery-backorders',
+        element: <DeliveryBackorders />,
       },
       {
         path: 'reserved-products',

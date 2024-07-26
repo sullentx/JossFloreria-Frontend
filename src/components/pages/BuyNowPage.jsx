@@ -1,42 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProductCard from '../Organisms/ProductCard';
 import './BuyNowPage.css';
+import { AuthContext } from '../../context/AuthContext';
 
 const BuyNowPage = () => {
-    const [product, setProduct] = useState({
-        name: '',
-        imagen: '',
-        Estado: 'Disponible',
-        precio: '',
-        Cantidad: '',
-        Fechas: '',
-    });
+    const { token } = useContext(AuthContext);
+    const [product, setProduct] = useState(null);
 
     useEffect(() => {
-        const fetchProduct = async () => {
+        console.log('Token:', token); 
+        const fetchProductDetails = async () => {
             try {
-                const response = await fetch('/api/product'); // URL de la API para obtener la información del producto
-                if (response.ok) {
-                    const data = await response.json();
-                    setProduct(data);
-                } else {
-                    console.error('Error al obtener el producto:', response.statusText);
+                const response = await fetch('/api/product', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                const productData = await response.json();
+                setProduct(productData);
             } catch (error) {
-                console.error('Error al obtener el producto:', error);
+                console.error('Error fetching product details:', error);
             }
         };
 
-        fetchProduct();
-    }, []);
-
-    const handleBuy = () => {
-        alert('Compra realizada');
-    };
+        fetchProductDetails();
+    }, [token]);
 
     return (
         <div className="buy-now-page">
-            <ProductCard product={{ ...product, onBuy: handleBuy }} />
+            {product ? (
+                <ProductCard product={product} />
+            ) : (
+                <p>Loading product details...</p>
+            )}
         </div>
     );
 };

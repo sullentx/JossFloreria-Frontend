@@ -13,7 +13,6 @@ import FavouriteProducts from './components/pages/FavouriteProducts';
 import NotFound from './components/pages/NotFound';
 import AdminPage from './components/pages/AdminPage';
 import DeliveryPage from './components/pages/DeliveryPage';
-import { AuthProvider } from './context/AuthContext';
 import AdminInventory from './components/pages/AdminInventory';
 import AdminDeliveryMan from './components/pages/AdminDeliveryMan';
 import AdminBackorders from './components/pages/AdminBackorders';
@@ -29,86 +28,30 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      {
-        path: '/',
-        element: <Home />
-      },
-      {
-        path: 'acerca-de-nosotros',
-        element: <AboutUsSection />,
-      },
-      {
-        path: 'sign-in',
-        element: <SignInPage />,
-      },
-      {
-        path: 'login',
-        element: <LoginPage />,
-      },
-      {
-        path: 'Comprar-ahora',
-        element: <BuyNowPage />,
-      },
-      {
-        path: 'admin-inventory',
-        element: <AdminInventory />,
-      },
-      {
-        path: 'admin-deliveryman',
-        element: <AdminDeliveryMan />,
-      },
-      {
-        path: 'admin-backorders',
-        element: <AdminBackorders />,
-      },
-      {
-        path: 'admin-order',
-        element: <AdminOrder />,
-      },
-      {
-        path: 'delivery-order',
-        element: <DeliveryOrder />,
-      },
-      {
-        path: 'delivery-backorders',
-        element: <DeliveryBackorders />,
-      },
-      {
-        path: 'reserved-products',
-        element: <ReservedProducts />,
-      },
-      {
-        path: 'favourite-products',
-        element: <FavouriteProducts />,
-      },
-      {
-        path: 'search',
-        element: <SearchPage />,
-      },
-      {
-        path: 'catalog',
-        element: <Catalog />,
-      },
-      {
-        path: 'custom',
-        element: <MakeYourBouquet />,
-      },
-      {
-        path: 'admin',
-        element: <AdminPage />,
-      },
-      {
-        path: 'delivery',
-        element: <DeliveryPage />,
-      },
+      { path: '/', element: <Home /> },
+      { path: 'acerca-de-nosotros', element: <AboutUsSection /> },
+      { path: 'sign-in', element: <SignInPage /> },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'comprar-ahora', element: <BuyNowPage /> },
+      { path: 'admin-inventory', element: <AdminInventory /> },
+      { path: 'admin-deliveryman', element: <AdminDeliveryMan /> },
+      { path: 'admin-backorders', element: <AdminBackorders /> },
+      { path: 'admin-order', element: <AdminOrder /> },
+      { path: 'delivery-order', element: <DeliveryOrder /> },
+      { path: 'delivery-backorders', element: <DeliveryBackorders /> },
+      { path: 'reserved-products', element: <ReservedProducts /> },
+      { path: 'favourite-products', element: <FavouriteProducts /> },
+      { path: 'search', element: <SearchPage /> },
+      { path: 'catalog', element: <Catalog /> },
+      { path: 'custom', element: <MakeYourBouquet /> },
+      { path: 'admin', element: <AdminPage /> },
+      { path: 'delivery', element: <DeliveryPage /> },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

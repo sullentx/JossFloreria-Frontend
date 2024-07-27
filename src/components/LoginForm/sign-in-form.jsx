@@ -43,7 +43,6 @@ const SignInForm = ({ onSubmit }) => {
           deleted
         }),
       });
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Hubo un error con la solicitud');

@@ -1,3 +1,4 @@
+// components/Header.js
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from './NavBar'; // Importa el componente NavBar

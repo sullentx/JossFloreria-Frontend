@@ -27,7 +27,6 @@ e.preventDefault();
         },
         body: JSON.stringify({ first_name,last_name,email, password,phone_number,address,created_by,update_by,deleted }),
       });
-
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

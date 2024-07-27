@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DeliveryBackorders.css';
 
+
 const DeliveryBackorders = () => {
+  const [backorders, setBackorders] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchBackorders = async () => {
+      try {
+        const response = await fetch('/api/backorders'); // URL de tu API
+        if (response.ok) {
+          const data = await response.json();
+          setBackorders(data);
+        } else {
+          console.error('Error al obtener los pedidos:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error al obtener los pedidos:', error);
+      }
+    };
+
+    fetchBackorders();
+  }, []);
 
   const handleNotificationClick = (orderId) => {
     navigate(`/order-details/${orderId}`);
   };
-
-  const backorders = [
-    { id: 1, clientName: 'Cliente 1', orderDate: '2024-07-10', deliveryDate: '2024-07-15' },
-    { id: 2, clientName: 'Cliente 2', orderDate: '2024-07-11', deliveryDate: '2024-07-16' },
-    { id: 3, clientName: 'Cliente 3', orderDate: '2024-07-12', deliveryDate: '2024-07-17' },
-  ];
 
   return (
     <div className="delivery-backorders-container">

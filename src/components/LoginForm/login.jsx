@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../Button/button';
@@ -9,7 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 const LoginForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth(); 
+  const { login } = useAuth();
 
   const created_by = email;
   const update_by = email;
@@ -26,16 +25,16 @@ const LoginForm = ({ onSubmit }) => {
         },
         body: JSON.stringify({ email, password, created_by, update_by, deleted }),
       });
-console.log(response)
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
 
       const data = await response.json();
-      //localStorage.setItem('token', token);
+      const token = data.token; // Suponiendo que el token está en el campo `token` de la respuesta
+      localStorage.setItem('token', token); // Guarda el token en localStorage
 
-      //const tokenProvider = localStorage.getItem('token');
-      login(data.token); // Guarda el token en el contexto
+      login(token); // Guarda el token en el contexto
 
       onSubmit(data); // Llama a la función de devolución de llamada con los datos
       console.log('Success:', data);
@@ -62,7 +61,7 @@ console.log(response)
       />
       <Button type="submit">Login</Button>
       <p className="sign-up-prompt">
-        ¿No tienes cuenta todavía? <Link to="/sign-in" className="sign-up-link">Create una ahora</Link>
+        ¿No tienes cuenta todavía? <Link to="/sign-in" className="sign-up-link">Crea una ahora</Link>
       </p>
     </form>
   );

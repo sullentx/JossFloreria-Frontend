@@ -13,12 +13,10 @@ const AboutUsSection=()=>{
          title="¿Quiénes somos?"
          />
           <Text>
-           Somos una floristería dedicada a ofrecerte la frescura y belleza de las flores en cada ocasión especial de tu vida.
-           Desde bodas y cumpleaños hasta eventos corporativos y momentos de consuelo, estamos aquí para embellecer tus momentos 
-           más importantes.
-           Nuestra pasión por las flores se refleja en cada diseño que creamos.
-           Trabajamos con una amplia variedad de flores frescas y de la más alta calidad, cuidadosamente seleccionadas para garantizar
-           que cada arreglo sea una obra de arte floral única y memorable.
+          ¡Bienvenidos a nuestra página! Nos especializamos en crear arreglos florales únicos y duraderos que traen belleza y elegancia a cualquier espacio. Nuestras flores eternas son auténticas flores naturales que han sido tratadas con
+           un proceso especial para mantener su frescura y belleza por mucho tiempo, sin necesidad de agua ni mantenimiento.
+           Por otro lado, nuestras flores de listón son una opción creativa y versátil que combina colores vibrantes y diseño artístico.Nos apasiona el arte floral y creemos que cada arreglo debe contar una historia. Ya sea que busques un regalo especial para un ser querido, 
+           decorar tu hogar un evento, o simplemente agregar un toque de naturaleza a tu día a día, estamos aquí para ayudarte a encontrar el arreglo perfecto. Nos enorgullece ofrecer productos de alta calidad y un servicio personalizado, asegurándonos de que cada cliente reciba una experiencia única y satisfactoria.
             </Text>
         </section>
     )

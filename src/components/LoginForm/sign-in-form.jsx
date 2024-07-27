@@ -3,7 +3,6 @@ import Input from '../Input/input';
 import Button from '../Button/button';
 import './sign-in-form.css';
 
-
 const SignInForm = ({ onSubmit }) => {
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
@@ -11,34 +10,57 @@ const SignInForm = ({ onSubmit }) => {
   const [password, setPassword] = useState('');
   const [phone_number, setPhoneNumber] = useState('');
   const [address, setAddress] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-const created_by= email;
-const update_by= email;
-const deleted = 0;
+  const created_by = email;
+  const update_by = email;
+  const deleted = 0;
 
-const handleSubmit = async (e) => {
-e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!first_name || !last_name || !email || !password || !phone_number || !address) {
+      setErrorMessage('Por favor, complete todos los campos.');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:5000/api/customer', {
+      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer', {
         method: 'POST',
         headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify({ first_name,last_name,email, password,phone_number,address,created_by,update_by,deleted }),
+        body: JSON.stringify({
+          first_name,
+          last_name,
+          email,
+          password,
+          phone_number,
+          address,
+          created_by,
+          update_by,
+          deleted
+        }),
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Hubo un error con la solicitud');
       }
+
       const data = await response.json();
       console.log('Success:', data);
-      onSubmit(data);
+      setErrorMessage(''); 
+      onSubmit(data); 
     } catch (error) {
       console.error('Error:', error);
+      setErrorMessage(error.message); 
     }
   };
+
   return (
     <form className="sign-in-form" onSubmit={handleSubmit}>
+      {errorMessage && <div className="error-message">{errorMessage}</div>} {}
       <Input
         type="text"
         name="firstName"

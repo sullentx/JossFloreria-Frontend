@@ -33,10 +33,31 @@
 }
 
 .product-details label {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
+}
+
+.product-details input,
+.product-details button {
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  box-sizing: border-box;
 }
 
 .product-actions {
   display: flex;
   gap: 10px;
+}
+
+
+.product-type-options {
+  display: flex;
+  gap: 40px; 
+}
+
+.product-type-option.selected {
+  font-weight: bold;
+  color: #007bff; 
 }

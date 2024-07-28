@@ -5,8 +5,10 @@ import './NavBarAdmin.css';
 
 const NavBarAdmin = () => {
   const navItems = [
-    { href: '/admin-inventory', label: 'Inventario' },
+    { href: '/admin-inventory', label: 'Agregar al Inventario' },
+    { href: '/admin-pm', label: 'Inventario' },
     { href: '/admin-deliveryman', label: 'Administrar Repartidores' },
+    { href: '/admin-dl', label: 'Repartidores' },
   ];
 
   return (
@@ -22,6 +24,10 @@ const NavBarAdmin = () => {
         </ul>
       </div>
       <div className="admin-header-icons">
+      <Link to="/login">
+          <img src="/src/assets/icons/login_N.png" alt="Inventario" className="admin-header-icon" />
+        </Link>
+
         <Link to="/admin-backorders">
           <img src="/src/assets/icons/notificacion.png" alt="Inventario" className="admin-header-icon" />
         </Link>

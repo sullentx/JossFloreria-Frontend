@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       { path: 'acerca-de-nosotros', element: <AboutUsSection /> },
       { path: 'sign-in', element: <SignInPage /> },
       { path: 'login', element: <LoginPage /> },
-      { path: 'comprar-ahora', element: <BuyNowPage /> },
+      { path: 'apartar-ahora', element: <BuyNowPage /> },
       { path: 'admin-inventory', element: <AdminInventory /> },
       { path: 'admin-deliveryman', element: <AdminDeliveryMan /> },
       { path: 'admin-backorders', element: <AdminBackorders /> },

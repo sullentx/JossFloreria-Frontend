@@ -7,6 +7,20 @@ const FavouriteProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
+        showConfirmButton: false,
+        timer: 1300,
+      }).then(() => {
+        window.location.href = '/login';
+      });
+      return;
+    }
+
     const fetchFavorites = async () => {
       try {
         const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites', {
@@ -30,6 +44,7 @@ const FavouriteProducts = () => {
     };
 
     fetchFavorites();
+  
   }, []);
 
   const handleRemoveFavourite = async (favorite_id) => {

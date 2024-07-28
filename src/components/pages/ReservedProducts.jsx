@@ -7,8 +7,22 @@ const ReservedProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
+        showConfirmButton: false,
+        timer: 1300,
+      }).then(() => {
+        window.location.href = '/login';
+      });
+      return;
+    }
+
     const fetchProducts = async () => {
-      const id = 1; 
+      const id = 1;
       try {
         const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/status/${id}`, {
           method: 'GET',
@@ -17,8 +31,12 @@ const ReservedProducts = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        const data = await response.json();
-        setProducts(data);
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(data);
+        } else {
+          console.error('Error al obtener productos');
+        }
       } catch (error) {
         console.error('Error al obtener productos:', error);
       }
@@ -73,7 +91,7 @@ const ReservedProducts = () => {
       });
 
       if (response.ok) {
-        Swal.fire('¡Compra realizada!', 'Has comprado el producto.', 'success');
+        Swal.fire('¡Apartado realizado!', 'Has comprado el producto.', 'success');
       } else {
         Swal.fire('Error!', 'Hubo un problema al comprar el producto.', 'error');
       }
@@ -95,7 +113,7 @@ const ReservedProducts = () => {
       });
 
       if (response.ok) {
-        Swal.fire('¡Compra realizada!', 'Has comprado todos los productos.', 'success');
+        Swal.fire('¡Apartado realizado!', 'Has comprado todos los productos.', 'success');
       } else {
         Swal.fire('Error!', 'Hubo un problema al comprar los productos.', 'error');
       }
@@ -117,13 +135,13 @@ const ReservedProducts = () => {
             <p>Precio: {product.price}</p>
             <p>Cantidad: {product.quantity}</p>
             <Button className="button-cancel" onClick={() => handleCancelProduct(product.id)}>Cancelar apartado</Button>
-            <Button className="button-buy" onClick={() => handleBuyProduct(product.id)}>Comprar</Button>
+            <Button className="button-buy" onClick={() => handleBuyProduct(product.id)}>Apartar</Button>
           </div>
         </div>
       ))}
       <div className="total-section">
         <p>Total del carrito: ${total}</p>
-        <Button className="button-buy-all" onClick={handleBuyAll}>Comprar</Button>
+        <Button className="button-buy-all" onClick={handleBuyAll}>Apartar</Button>
       </div>
     </div>
   );

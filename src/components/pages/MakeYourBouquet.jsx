@@ -10,27 +10,12 @@ const MakeYourBouquet = () => {
   const [userEmail, setUserEmail] = useState('user@example.com'); 
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Inicia sesión',
-        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
-        showConfirmButton: true,
-      }).then(() => {
-        // Redirigir al usuario a la página de inicio de sesión, por ejemplo:
-        window.location.href = '/login';
-      });
-      return; // Detiene el resto de la ejecución
-    }
-
     const fetchFlowers = async () => {
       try {
         const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/flowers/flowers', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
@@ -89,13 +74,7 @@ const MakeYourBouquet = () => {
         name: `Ramo Personalizado ${Math.floor(Math.random() * 1000)}`, // Nombre con contador
         type_name: 'Personalizado',
         details: bouquetDetails,
-        price: selectedFlowers.reduce((total, flower) => {
-          const quantity = selection === 1 ? 30 : selection === 2 ? 15 : 10;
-          return total + flower.price * quantity;
-        }, 0),
-        quantity: 30, 
         quantity: 1,
-
         is_precreated: false,
         image_url: '',
       };

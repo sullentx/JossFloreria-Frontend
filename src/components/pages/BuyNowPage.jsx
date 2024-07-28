@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import ProductCard from '../Organisms/ProductCard';
 import './BuyNowPage.css';
 
@@ -6,23 +7,28 @@ const BuyNowPage = () => {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-
     const token = localStorage.getItem('token');
-    console.log('Token:', token);
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
+        showConfirmButton: false,
+        timer: 1300,
+      }).then(() => {
+        window.location.href = '/login';
+      });
+      return;
+    }
 
     const fetchProductDetails = async () => {
-      if (!token) {
-        console.error('No token available. Please log in.');
-        return;
-      }
-
       try {
         const response = await fetch('/api/product', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

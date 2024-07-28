@@ -12,14 +12,12 @@ const Catalog = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://localhost:5000/api/bouquets');
+        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/bouquets?is_precreated=true');
         if (!response.ok) {
           throw new Error('Error al obtener los datos');
         }
         const data = await response.json();
-
-        const precreatedBouquets = data.filter((bouquet) => bouquet.is_precreated);
-        setProducts(precreatedBouquets);
+        setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
         Swal.fire({
@@ -32,39 +30,50 @@ const Catalog = () => {
 
     const fetchFavourites = async () => {
       try {
-        const response = await fetch('/api/favorites', {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No se encontró un token de autenticación.');
+        }
+
+        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`, 
+            'Authorization': `Bearer ${token}`,
           },
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          setFavourites(data.map(fav => fav.bouquet_id));
-        } else {
-          console.error('Error al obtener favoritos');
+        if (!response.ok) {
+          throw new Error(response.status === 403 ? 'Acceso prohibido. Verifica tus credenciales.' : 'Error al obtener favoritos');
         }
+
+        const data = await response.json();
+        setFavourites(data.map(fav => fav.bouquet_id));
       } catch (error) {
         console.error('Error al obtener favoritos:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al obtener favoritos',
+          text: error.message,
+        });
       }
     };
 
     fetchProducts();
-    fetchFavourites(); 
+    fetchFavourites();
   }, []);
-
 
   const handleAddToFavourites = async (product) => {
     try {
-      const response = await fetch('/api/favorites', {
+      const formData = new FormData();
+      formData.append('bouquet_id', product.id);
+
+      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify({ bouquet_id: product.id }),
+        body: formData,
       });
 
       if (response.ok) {
@@ -112,7 +121,11 @@ const Catalog = () => {
       ) : (
         products.map((product) => (
           <div key={product.id} className="product-card">
-            <img src={product.image_url} alt={product.name} className="product-image" />
+            <img 
+              src={product.image_url ? `https://ks60rj7q-3000.usw3.devtunnels.ms/${product.image_url}` : ''} 
+              alt={product.name} 
+              className="product-image" 
+            />
             <div className="product-details">
               <h3>{product.name}</h3>
               <p>Tipo: {product.type_name}</p>

@@ -11,7 +11,7 @@ const AdminDeliveryCards = () => {
 
   const fetchDeliveryMen = async () => {
     try {
-      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer/persons', {
+      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer/delivery', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const AdminDeliveryCards = () => {
 
   const handleDeleteDeliveryMan = async (id) => {
     try {
-      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer/persons/${id}`, {
+      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer/delivery/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

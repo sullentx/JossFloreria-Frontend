@@ -48,7 +48,7 @@ const Catalog = () => {
         }
 
         const data = await response.json();
-        setFavourites(data.map(fav => fav.bouquet_id));
+        setFavourites(data.map(fav => fav.bouquetId)); 
       } catch (error) {
         console.error('Error al obtener favoritos:', error);
         Swal.fire({
@@ -70,24 +70,38 @@ const Catalog = () => {
         icon: 'warning',
         title: 'Inicia sesión',
         text: 'Debes iniciar sesión para añadir productos a tus favoritos.',
+
+    if (!product.id) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al añadir a favoritos',
+        text: 'El ID del producto no está disponible.',
       });
       return;
     }
 
     try {
-      const formData = new FormData();
-      formData.append('bouquet_id', product.id);
+      const bouquetId = Number(product.id); 
+      if (isNaN(bouquetId)) {
+        throw new Error('El ID del producto no es un número válido.');
+      }
+
+      const body = JSON.stringify({ bouquetId });
+
+      console.log('Enviando bouquet ID:', bouquetId);
 
       const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: formData,
+        body: body,
       });
 
       if (response.ok) {
-        setFavourites([...favourites, product.id]);
+        setFavourites([...favourites, bouquetId]);
         Swal.fire({
           icon: 'success',
           title: 'Producto añadido a favoritos',
@@ -95,9 +109,11 @@ const Catalog = () => {
           timer: 1500,
         });
       } else {
+        const errorData = await response.json();
         Swal.fire({
           icon: 'error',
           title: 'No se pudo añadir a favoritos',
+          text: errorData.error || 'Error desconocido',
           showConfirmButton: false,
           timer: 1500,
         });
@@ -113,15 +129,24 @@ const Catalog = () => {
   };
 
   const handleAddToCart = (product) => {
+
     const token = localStorage.getItem('token');
     if (!token) {
       Swal.fire({
         icon: 'warning',
         title: 'Inicia sesión',
         text: 'Debes iniciar sesión para añadir productos al carrito.',
+
+    if (!product.id) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al añadir al carrito',
+        text: 'El ID del producto no está disponible.',
       });
       return;
     }
+      })
+}
 
     setCart([...cart, product]);
     Swal.fire({

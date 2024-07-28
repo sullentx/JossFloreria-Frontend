@@ -7,6 +7,7 @@ const MakeYourBouquet = () => {
   const [selection, setSelection] = useState(null);
   const [selectedFlowers, setSelectedFlowers] = useState([]);
   const [flowerOptions, setFlowerOptions] = useState([]);
+  const [userEmail, setUserEmail] = useState('user@example.com'); 
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -25,11 +26,12 @@ const MakeYourBouquet = () => {
 
     const fetchFlowers = async () => {
       try {
-        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/flowers', {
+        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/flowers/flowers', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
 
@@ -74,53 +76,95 @@ const MakeYourBouquet = () => {
 
   const handleAddToCart = async () => {
     if (validateSelection()) {
+      const flowers = selectedFlowers.map((flower) => ({
+        flower_id: flower.id,
+        flower_quantity: 30,
+      }));
+
       const bouquetDetails = selectedFlowers
-        .map((flower) => {
-          const quantity = selection === 1 ? 30 : selection === 2 ? 15 : 10;
-          return `${quantity} x ${flower.name}`;
-        })
+        .map((flower) => `30 x ${flower.name}`)
         .join(', ');
 
-      const bouquet = {
-        name: 'Ramo personalizado',
-        type_name: 'Custom Bouquet',
+      const bouquetData = {
+        name: `Ramo Personalizado ${Math.floor(Math.random() * 1000)}`, // Nombre con contador
+        type_name: 'Personalizado',
         details: bouquetDetails,
         price: selectedFlowers.reduce((total, flower) => {
           const quantity = selection === 1 ? 30 : selection === 2 ? 15 : 10;
           return total + flower.price * quantity;
         }, 0),
         quantity: 30, 
+        quantity: 1,
+
         is_precreated: false,
         image_url: '',
       };
 
+      console.log('Bouquet Data:', bouquetData);
+      console.log('Flowers:', flowers);
+
       try {
-        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/bouquets', {
+        // Crear el ramo personalizado
+        const bouquetResponse = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/custom', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-          body: JSON.stringify(bouquet),
+          body: JSON.stringify({ bouquetData, flowers, userEmail }),
         });
 
-        if (response.ok) {
+        if (!bouquetResponse.ok) {
+          throw new Error('Failed to create custom bouquet');
+        }
+
+        const bouquet = await bouquetResponse.json();
+        console.log('Created Bouquet:', bouquet);
+
+        // Agregar el ramo al carrito
+        const requestPayload = {
+          customer_id: bouquet.customer_id, // ID del cliente obtenido del bouquet
+          bouquet_id: bouquet.id,
+          quantity: 1,
+          price: bouquet.price || 0, // Asegurarse de que price no sea undefined
+          total: bouquet.price || 0, // Asegurarse de que total no sea undefined
+          status_id: 1,
+          delivery_man_id: 1,
+          request_date: new Date().toISOString(),
+          created_by: userEmail,
+          created_at: new Date().toISOString(),
+          updated_by: userEmail,
+          updated_at: new Date().toISOString(),
+          deleted: false,
+        };
+
+        console.log('Request Payload:', requestPayload);
+
+        const cartResponse = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/addcarrito', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: JSON.stringify(requestPayload),
+        });
+
+        if (cartResponse.ok) {
           Swal.fire({
             icon: 'success',
             title: 'Ramo añadido al carrito',
             showConfirmButton: false,
             timer: 1500,
           });
-          console.log('Añadido al carrito:', bouquet);
           setSelection(null);
           setSelectedFlowers([]);
         } else {
           Swal.fire({
             icon: 'error',
-            title: 'Error al añadir el ramo',
-            text: 'Hubo un problema al intentar añadir el ramo. Intenta de nuevo.',
+            title: 'Error al añadir el ramo al carrito',
+            text: 'Hubo un problema al intentar añadir el ramo al carrito. Intenta de nuevo.',
           });
-          console.error('Failed to add bouquet:', response.statusText);
+          console.error('Failed to add bouquet to cart:', cartResponse.statusText);
         }
       } catch (error) {
         console.error('Error adding bouquet:', error);

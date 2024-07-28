@@ -13,12 +13,13 @@ const FavouriteProducts = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`, 
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
 
         if (response.ok) {
           const favorites = await response.json();
+          console.log('Favorites fetched:', favorites); // Debug line
           setProducts(favorites);
         } else {
           console.error('Error al obtener favoritos');
@@ -31,8 +32,8 @@ const FavouriteProducts = () => {
     fetchFavorites();
   }, []);
 
-
-  const handleRemoveFavourite = async (id) => {
+  const handleRemoveFavourite = async (favorite_id) => {
+    console.log('Removing favorite with favorite_id:', favorite_id); // Debug line
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'No podrás revertir esto!',
@@ -45,7 +46,7 @@ const FavouriteProducts = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`/api/favorites/${id}`, {
+          const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites/${favorite_id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ const FavouriteProducts = () => {
           });
 
           if (response.ok) {
-            setProducts(products.filter((product) => product.id !== id));
+            setProducts(products.filter((product) => product.favorite_id !== favorite_id));
             Swal.fire('Eliminado!', 'El producto ha sido eliminado de favoritos.', 'success');
           } else {
             console.error('Error al eliminar el favorito');
@@ -66,26 +67,24 @@ const FavouriteProducts = () => {
     });
   };
 
-
-  const handleOrderAgain = (id) => {
+  const handleOrderAgain = (bouquet_id) => {
     Swal.fire('Redirigir', 'Redirigir a la vista de pedido', 'success');
-
   };
 
   return (
     <div className="favourite-products">
       {products.length > 0 ? (
         products.map((product) => (
-          <div key={product.id} className="product-item">
+          <div key={product.favorite_id} className="product-item">
             <img src="/src/assets/icons/favourites.png" alt="Favorito" className="favourite-icon" />
             <div className="product-details">
               <p>Nombre: {product.name}</p>
               <p>Precio: ${product.price}</p>
               <div className="product-actions">
-                <Button className="button-order-again" onClick={() => handleOrderAgain(product.id)}>
+                <Button className="button-order-again" onClick={() => handleOrderAgain(product.bouquet_id)}>
                   Pedir de nuevo
                 </Button>
-                <Button className="button-remove-favourite" onClick={() => handleRemoveFavourite(product.id)}>
+                <Button className="button-remove-favourite" onClick={() => handleRemoveFavourite(product.favorite_id)}>
                   Eliminar de favoritos
                 </Button>
               </div>

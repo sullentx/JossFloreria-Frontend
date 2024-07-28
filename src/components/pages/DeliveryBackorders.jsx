@@ -10,7 +10,7 @@ const DeliveryBackorders = () => {
   useEffect(() => {
     const fetchBackorders = async () => {
       try {
-        const response = await fetch('/api/backorders'); // URL de tu API
+        const response = await fetch('/api/backorders'); 
         if (response.ok) {
           const data = await response.json();
           setBackorders(data);

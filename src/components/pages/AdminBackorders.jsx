@@ -9,7 +9,7 @@ const AdminBackorders = () => {
   useEffect(() => {
     const fetchBackorders = async () => {
       try {
-        const response = await fetch('/api/backorders'); // URL de la API para obtener los pedidos pendientes
+        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests'); 
         if (response.ok) {
           const data = await response.json();
           setBackorders(data);

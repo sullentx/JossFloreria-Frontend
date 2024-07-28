@@ -1,62 +1,56 @@
-.admin-dm-container {
-  max-width: 1300px;
-  margin: auto;
-  padding: 30px;
+.admin-deliveryman {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 200px; 
   text-align: center;
 }
 
-.deliveryman-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+.admin-deliveryman > button {
   margin-top: 20px;
 }
 
-.deliveryman-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 300px;
+.empty-deliveryman {
+  font-size: 1.5em;  
+  color: #555;       
+  margin-bottom: 20px; 
+  text-align: center; 
+}
+
+.deliveryman-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 80%;
   text-align: left;
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.deliveryman-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+.deliveryman-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-left: 20px;
 }
 
-.deliveryman-card h3 {
-  margin: 0 0 10px;
-  font-size: 1.5em;
-  color: #333;
+.deliveryman-details label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 }
 
-.deliveryman-card p {
-  margin: 5px 0;
-  color: #555;
-  font-size: 1em;
+.deliveryman-details input,
+.deliveryman-details button {
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  box-sizing: border-box;
 }
 
-.delete-button {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 50px 55px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  padding-top: 50px;
-}
-
-.delete-button:hover {
-  background-color: #c9302c;
-}
-
-.no-deliverymen {
-  font-size: 1.2em;
-  color: #777;
+.deliveryman-actions {
+  display: flex;
+  gap: 10px;
 }

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import './Catalog.css';
@@ -65,6 +64,16 @@ const Catalog = () => {
   }, []);
 
   const handleAddToFavourites = async (product) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para añadir productos a tus favoritos.',
+      });
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('bouquet_id', product.id);
@@ -72,7 +81,7 @@ const Catalog = () => {
       const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       });
@@ -104,6 +113,16 @@ const Catalog = () => {
   };
 
   const handleAddToCart = (product) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para añadir productos al carrito.',
+      });
+      return;
+    }
+
     setCart([...cart, product]);
     Swal.fire({
       icon: 'success',

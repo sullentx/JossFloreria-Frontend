@@ -9,10 +9,9 @@ const SearchPage = () => {
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
-
   const handleSearch = async () => {
     try {
-      const response = await fetch(`https://api.example.com/search?query=${query}`);
+      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.m/api/search?nombre=${query}`);
       const data = await response.json();
       setResults(data.products); 
       console.log('Resultados:', data.products);
@@ -20,7 +19,6 @@ const SearchPage = () => {
       console.error('Error al buscar:', error);
     }
   };
-
   return (
     <div className="search-page">
       <div className="search-container">

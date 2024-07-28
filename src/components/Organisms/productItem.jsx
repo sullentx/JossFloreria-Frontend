@@ -46,19 +46,11 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
   };
 
   const handleSave = async () => {
-    if (!name || !price || !quantity || (isFlower && !color) || (!isFlower && (!typeName || !flowerQuantity))) {
-      MySwal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Todos los campos deben estar llenos.',
-      });
-      return;
-    }
     try {
       const url = isFlower
         ? 'https://ks60rj7q-3000.usw3.devtunnels.ms/api/flowers/flower'
         : 'https://ks60rj7q-3000.usw3.devtunnels.ms/api/bouquets';
-
+  
       const formData = new FormData();
       formData.append('name', name);
       if (isFlower) {
@@ -88,7 +80,7 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
       formData.append('updated_at', new Date().toISOString());
       formData.append('updated_by', 'user_id_placeholder');
       formData.append('deleted', false);
-
+  
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -96,17 +88,18 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
         },
         body: formData,
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error HTTP! estado: ${response.status}`);
       }
       const result = await response.json();
+      const product = { ...result, image_url: image_url instanceof File ? URL.createObjectURL(image_url) : image_url };
       MySwal.fire({
         icon: 'success',
         title: 'Guardado',
         text: 'El producto ha sido guardado con éxito.',
       });
-      onSave(result);
+      onSave(product);
     } catch (error) {
       MySwal.fire({
         icon: 'error',
@@ -128,7 +121,7 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
         ) : (
           <p>Sin imagen</p>
         )}
-        <input type="file" accept="image/*" onChange={handleImageChange} />
+        <input type="file" accept="image/jpg" onChange={handleImageChange} />
       </div>
       <div className="product-details">
         <label>

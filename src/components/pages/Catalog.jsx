@@ -129,7 +129,7 @@ const Catalog = () => {
     }
   };
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = async (product) => {
     if (!product.id) {
       Swal.fire({
         icon: 'error',
@@ -139,13 +139,56 @@ const Catalog = () => {
       return;
     }
 
-    setCart([...cart, product]);
-    Swal.fire({
-      icon: 'success',
-      title: 'Producto añadido al carrito de apartados',
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    const bouquetId = Number(product.id);
+    const quantity = 1; // Puedes ajustar la cantidad según tus necesidades
+    const statusId = 1;
+    const deliveryManId = 1; // Puedes ajustar el ID del repartidor según tus necesidades
+    const requestDate = new Date().toISOString();
+
+    const requestBody = {
+      bouquet_id: bouquetId,
+      quantity: quantity,
+      status_id: statusId,
+      delivery_man_id: deliveryManId,
+      request_date: requestDate,
+    };
+
+    try {
+      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/addcarrito', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        setCart([...cart, product]);
+        Swal.fire({
+          icon: 'success',
+          title: 'Producto añadido al carrito de apartados',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        const errorData = await response.json();
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo añadir al carrito',
+          text: errorData.error || 'Error desconocido',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      console.error('Error al añadir al carrito:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Ocurrió un problema al añadir al carrito',
+        text: error.message,
+      });
+    }
   };
 
   return (

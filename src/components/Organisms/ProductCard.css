@@ -1,4 +1,6 @@
+
 .product-card {
+    display: flex;
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px 30px;
@@ -42,7 +44,6 @@
 
 .product-status,
 .product-price,
-.product-date-picker,
 .product-quantity {
     margin-bottom: 20px;
 }
@@ -51,60 +52,20 @@
     font-weight: bold;
 }
 
-.product-right label {
-    display: flex;
-    flex-direction: column;
-}
-
-.product-right input {
-    margin-top: 5px;
-}
-
-.product-right .button {
-    align-self: center;
-}
-
-.react-datepicker {
-    font-family: Arial, sans-serif;
-    border: 1px solid #e3d6e4;
-    border-radius: 4px;
-    padding: 10px;
-    background-color: #e1c6ff;
-    height: max-content;
-    width: max-content;
-    position: absolute;
-    left: 0;
-}
-
-.datepicker-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-.react-datepicker__header {
-    background-color: #b482ec;
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-    height: max-content;
-    width: max-content;
-  
-}
-
-.react-datepicker__day-name,
-.react-datepicker__day,
-.react-datepicker__time-name {
-    margin: 0.2rem;
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-.react-datepicker__day--selected,
-.react-datepicker__day--keyboard-selected {
-    background-color: #8b48d8;
-}
-
-.react-datepicker__day:hover {
-    background-color: #8b48d8;
+.product-right .button-apart {
+    background-color: #4CAF50;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.product-right .button-apart:hover {
+    background-color: #45a049;
 }

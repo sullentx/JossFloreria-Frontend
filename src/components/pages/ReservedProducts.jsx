@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Para la redirección
 import Swal from 'sweetalert2';
 import Button from '../Button/button';
 import './ReservedProducts.css';
 
 const ReservedProducts = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate(); // Hook para la redirección
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Inicia sesión',
-        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
-        showConfirmButton: false,
-        timer: 1300,
-      }).then(() => {
-        window.location.href = '/login';
-      });
-      return;
-    }
-
     const fetchProducts = async () => {
-      const id = 1;
+      const id = 1; 
       try {
         const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/status/${id}`, {
           method: 'GET',
@@ -31,12 +19,8 @@ const ReservedProducts = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
-        if (response.ok) {
-          const data = await response.json();
-          setProducts(data);
-        } else {
-          console.error('Error al obtener productos');
-        }
+        const data = await response.json();
+        setProducts(data);
       } catch (error) {
         console.error('Error al obtener productos:', error);
       }
@@ -82,67 +66,61 @@ const ReservedProducts = () => {
 
   const handleBuyProduct = async (id) => {
     try {
-      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/${id}/buy`, {
-        method: 'POST',
+      const requestData = { status_id: 2 };
+
+      console.log('Enviando solicitud para actualizar el estado del producto:', {
+        url: `https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/${id}/status`,
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
+        body: JSON.stringify(requestData)
       });
 
-      if (response.ok) {
-        Swal.fire('¡Apartado realizado!', 'Has comprado el producto.', 'success');
-      } else {
-        Swal.fire('Error!', 'Hubo un problema al comprar el producto.', 'error');
-      }
-    } catch (error) {
-      console.error('Error al comprar producto:', error);
-      Swal.fire('Error!', 'Hubo un problema al comprar el producto.', 'error');
-    }
-  };
-
-  const handleBuyAll = async () => {
-    try {
-      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/buy', {
-        method: 'POST',
-        body: JSON.stringify({ products: products.map(product => product.id) }),
+      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/${id}/status`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
+        body: JSON.stringify(requestData)
       });
 
       if (response.ok) {
-        Swal.fire('¡Apartado realizado!', 'Has comprado todos los productos.', 'success');
+        console.log('Respuesta del servidor:', await response.json());
+        Swal.fire('¡Apartado realizado!', 'Has apartado el producto.', 'success').then(() => {
+          // Redirigir a la página de confirmación
+          navigate('/apartar-ahora');
+        });
       } else {
-        Swal.fire('Error!', 'Hubo un problema al comprar los productos.', 'error');
+        console.error('Error en la respuesta del servidor:', response.status, await response.text());
+        Swal.fire('Error!', 'Hubo un problema al apartar el producto.', 'error');
       }
     } catch (error) {
-      console.error('Error al comprar todos los productos:', error);
-      Swal.fire('Error!', 'Hubo un problema al comprar los productos.', 'error');
+      console.error('Error al apartar producto:', error);
+      Swal.fire('Error!', 'Hubo un problema al apartar el producto.', 'error');
     }
   };
-
-  const total = products.reduce((sum, product) => sum + product.total, 0);
 
   return (
     <div className="reserved-products">
-      {products.map(product => (
-        <div key={product.id} className="product-item">
-          <img src={product.image_url} alt={product.name} className="product-image" />
-          <div className="product-details">
-            <p>Nombre: {product.name}</p>
-            <p>Precio: {product.price}</p>
-            <p>Cantidad: {product.quantity}</p>
-            <Button className="button-cancel" onClick={() => handleCancelProduct(product.id)}>Cancelar apartado</Button>
-            <Button className="button-buy" onClick={() => handleBuyProduct(product.id)}>Apartar</Button>
+      {products.length === 0 ? (
+        <p>Carrito de apartados vacío</p>
+      ) : (
+        products.map(product => (
+          <div key={product.id} className="product-item">
+            <img src={product.image_url} alt={product.name} className="product-image" />
+            <div className="product-details">
+              <p>Nombre: {product.name}</p>
+              <p>Precio: {product.price}</p>
+              <p>Cantidad: {product.quantity}</p>
+              <Button className="button-cancel" onClick={() => handleCancelProduct(product.id)}>Cancelar apartado</Button>
+              <Button className="button-buy" onClick={() => handleBuyProduct(product.id)}>Apartar</Button>
+            </div>
           </div>
-        </div>
-      ))}
-      <div className="total-section">
-        <p>Total del carrito: ${total}</p>
-        <Button className="button-buy-all" onClick={handleBuyAll}>Apartar</Button>
-      </div>
+        ))
+      )}
     </div>
   );
 };

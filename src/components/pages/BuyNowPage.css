@@ -1,89 +1,87 @@
 /* BuyNowPage.css */
 .buy-now-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 200px);
-    padding: 20px;
-    margin-top: 200px;
-    background-color: #f8f9fa; 
-  }
-  
-  .product-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-    transition: transform 0.3s ease; 
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px); 
-  }
-  
-  .product-image {
-    width: 100%;
-    height: auto;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .product-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .product-name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    color: #333;
-    margin: 0;
-  }
-  
-  .product-price {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    color: #28a745; 
-    margin: 0;
-  }
-  
-  .product-description {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
-    color: #666;
-    margin: 0;
-  }
-  
-  .buy-now-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .buy-now-button:hover {
-    background-color: #0056b3; 
-  }
-  
-  .loading-message {
-    font-family: 'Arial', sans-serif;
-    font-size: 1.2rem;
-    color: #666;
-  }
+  display: flex;
+  flex-wrap: wrap; /* Permitir que las tarjetas se envuelvan a la siguiente línea */
+  gap: 20px; /* Espacio entre las tarjetas */
+  justify-content: center;
+  padding: 20px;
+  margin-top: 200px;
+  background-color: #f8f9fa;
+}
 
-  
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 300px; /* Ajustar el ancho máximo de la tarjeta */
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+}
+
+.product-price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  color: #28a745;
+  margin: 0;
+}
+
+.product-description {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.buy-now-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-now-button:hover {
+  background-color: #0056b3;
+}
+
+.loading-message {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.2rem;
+  color: #666;
+}

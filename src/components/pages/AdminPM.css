@@ -1,62 +1,61 @@
 .admin-pm-container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 200px;
-  }
-  
-  .product-management-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .product-management-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .product-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .product-management-card h3 {
-    margin: 10px 0;
-  }
-  
-  .product-management-card label {
-    display: block;
-    margin: 5px 0;
-  }
-  
-  .product-management-card input[type="number"] {
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-    box-sizing: border-box;
-  }
-  
-  .product-management-card button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .product-management-card button:hover {
-    background-color: #45a049;
-  }
-  
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.product-management-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+}
+
+.product-management-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 30px;
+  width: 350px; 
+  display: flex;
+  flex-direction: column;
+  align-items:normal;
+}
+
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-management-card h3 {
+  margin: 10px 0;
+}
+
+.product-management-card label {
+  display: block;
+  margin: 5px 0;
+}
+
+.product-management-card input[type="number"] {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.product-management-card button {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-management-card button:hover {
+  background-color: #9d6eda;
+}
+
+

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import './AdminPM.css';
+import Button from './../Button/button'
 
 const AdminPM = () => {
   const [flowers, setFlowers] = useState([]);
@@ -245,7 +246,7 @@ const AdminPM = () => {
                 }
               />
             </label>
-            <button
+            <Button
               onClick={() =>
                 handleUpdate(
                   flower.id,
@@ -265,13 +266,13 @@ const AdminPM = () => {
               }
             >
               Guardar Cambios
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => handleDeleteFlower(flower.id)}
               className="delete-button"
             >
               Borrar Flor
-            </button>
+            </Button>
           </div>
         ))}
       </div>
@@ -338,7 +339,7 @@ const AdminPM = () => {
                 }
               />
             </label>
-            <button
+            <Button
               onClick={() =>
                 handleUpdate(
                   bouquet.id,
@@ -364,13 +365,13 @@ const AdminPM = () => {
               }
             >
               Guardar Cambios
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => handleDeleteBouquet(bouquet.id)}
               className="delete-button"
             >
               Borrar Ramo
-            </button>
+            </Button>
           </div>
         ))}
       </div>

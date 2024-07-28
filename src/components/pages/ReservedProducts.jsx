@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../Button/button';
 import './ReservedProducts.css';
 
 const ReservedProducts = () => {
   const [products, setProducts] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      const id = 1; 
       try {
-        const response = await fetch('/api/products'); 
+        const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/status/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -26,7 +30,7 @@ const ReservedProducts = () => {
   const handleCancelProduct = async (id) => {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: "No podrás revertir esto!",
+      text: 'No podrás revertir esto!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -36,8 +40,12 @@ const ReservedProducts = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`/api/products/${id}`, {
+          const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/${id}`, {
             method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
           });
 
           if (response.ok) {
@@ -56,8 +64,12 @@ const ReservedProducts = () => {
 
   const handleBuyProduct = async (id) => {
     try {
-      const response = await fetch(`/api/products/${id}/buy`, {
+      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/${id}/buy`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
 
       if (response.ok) {
@@ -73,11 +85,12 @@ const ReservedProducts = () => {
 
   const handleBuyAll = async () => {
     try {
-      const response = await fetch('/api/products/buy', {
+      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/buy', {
         method: 'POST',
         body: JSON.stringify({ products: products.map(product => product.id) }),
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
 
@@ -92,27 +105,13 @@ const ReservedProducts = () => {
     }
   };
 
-  const isDateBlocked = (date) => {
-    const today = new Date();
-    const differenceInTime = date.getTime() - today.getTime();
-    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-    return differenceInDays < 3;
-  };
-
-  const total = products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
+  const total = products.reduce((sum, product) => sum + product.total, 0);
 
   return (
     <div className="reserved-products">
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
-        filterDate={isDateBlocked}
-        placeholderText="Selecciona una fecha"
-        className="date-picker"
-      />
       {products.map(product => (
         <div key={product.id} className="product-item">
-          <img src={product.image} alt={product.name} className="product-image" />
+          <img src={product.image_url} alt={product.name} className="product-image" />
           <div className="product-details">
             <p>Nombre: {product.name}</p>
             <p>Precio: {product.price}</p>

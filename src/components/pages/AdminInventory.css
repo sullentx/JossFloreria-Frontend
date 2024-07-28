@@ -1,21 +1,88 @@
-.admin-inventory {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    margin-top: 200px; 
-    text-align: center;
+.admin-deliveryman {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin-top: 50px;
+  text-align: center;
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  }
-  
-  .admin-inventory > button {
-    margin-top: 20px;
-  }
+.admin-deliveryman > button {
+  margin-top: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+.admin-deliveryman > button:hover {
+  background-color: #45a049;
+}
 
-  .empty-inventory {
-    font-size: 1.5em;  
-    color: #555;       
-    margin-bottom: 20px; 
-    text-align: center;
-  }
+.empty-deliveryman {
+  font-size: 1.5em;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.deliveryman-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
+.deliveryman-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-left: 20px;
+}
+
+.deliveryman-details label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.deliveryman-details input {
+  width: 100%;
+  padding: 10px;
+  margin: 4px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.deliveryman-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.deliveryman-actions button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.deliveryman-actions button:hover {
+  background-color: #a051b4;
+}

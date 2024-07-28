@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import './AdminPM.css';
-import Button from './../Button/button'
+import Button from './../Button/button';
 
 const AdminPM = () => {
   const [flowers, setFlowers] = useState([]);
@@ -246,33 +246,36 @@ const AdminPM = () => {
                 }
               />
             </label>
-            <Button
-              onClick={() =>
-                handleUpdate(
-                  flower.id,
-                  'flower',
-                  parseFloat(
-                    document.querySelector(
-                      `.product-management-card input[type="number"]`
-                    ).value
-                  ),
-                  parseInt(
-                    document.querySelector(
-                      `.product-management-card input[type="number"]:nth-child(3)`
-                    ).value,
-                    10
+            <div className="button-container">
+              <Button
+                onClick={() =>
+                  handleUpdate(
+                    flower.id,
+                    'flower',
+                    parseFloat(
+                      document.querySelector(
+                        `.product-management-card input[type="number"]`
+                      ).value
+                    ),
+                    parseInt(
+                      document.querySelector(
+                        `.product-management-card input[type="number"]:nth-child(3)`
+                      ).value,
+                      10
+                    )
                   )
-                )
-              }
-            >
-              Guardar Cambios
-            </Button>
-            <Button
-              onClick={() => handleDeleteFlower(flower.id)}
-              className="delete-button"
-            >
-              Borrar Flor
-            </Button>
+                }
+                className="button-save"
+              >
+                Guardar Cambios
+              </Button>
+              <Button
+                onClick={() => handleDeleteFlower(flower.id)}
+                className="button-delete"
+              >
+                Borrar Flor
+              </Button>
+            </div>
           </div>
         ))}
       </div>
@@ -283,30 +286,13 @@ const AdminPM = () => {
           <div key={bouquet.id} className="product-management-card">
             <img
               src={bouquet.image_url}
-              alt={bouquet.type_name}
+              alt={bouquet.name}
               className="product-image"
             />
             <h3>{bouquet.name}</h3>
-            <p>Tipo: {bouquet.type_name}</p>
-            <p>Detalles: {bouquet.details}</p>
             <p>Precio: ${bouquet.price}</p>
             <p>Cantidad: {bouquet.quantity}</p>
-            <label>
-              Cantidad de Flores:
-              <input
-                type="number"
-                defaultValue={bouquet.flower_quantity || ''}
-                onBlur={(e) =>
-                  handleUpdate(
-                    bouquet.id,
-                    'bouquet',
-                    bouquet.price,
-                    bouquet.quantity,
-                    parseInt(e.target.value, 10)
-                  )
-                }
-              />
-            </label>
+            <p>Cantidad de Flores: {bouquet.flower_quantity}</p>
             <label>
               Precio:
               <input
@@ -339,39 +325,58 @@ const AdminPM = () => {
                 }
               />
             </label>
-            <Button
-              onClick={() =>
-                handleUpdate(
-                  bouquet.id,
-                  'bouquet',
-                  parseFloat(
-                    document.querySelector(
-                      `.product-management-card input[type="number"]`
-                    ).value
-                  ),
-                  parseInt(
-                    document.querySelector(
-                      `.product-management-card input[type="number"]:nth-child(3)`
-                    ).value,
-                    10
-                  ),
-                  parseInt(
-                    document.querySelector(
-                      `.product-management-card input[type="number"]:nth-child(5)`
-                    ).value,
-                    10
+            <label>
+              Cantidad de Flores:
+              <input
+                type="number"
+                defaultValue={bouquet.flower_quantity}
+                onBlur={(e) =>
+                  handleUpdate(
+                    bouquet.id,
+                    'bouquet',
+                    bouquet.price,
+                    bouquet.quantity,
+                    parseInt(e.target.value, 10)
                   )
-                )
-              }
-            >
-              Guardar Cambios
-            </Button>
-            <Button
-              onClick={() => handleDeleteBouquet(bouquet.id)}
-              className="delete-button"
-            >
-              Borrar Ramo
-            </Button>
+                }
+              />
+            </label>
+            <div className="button-container">
+              <Button
+                onClick={() =>
+                  handleUpdate(
+                    bouquet.id,
+                    'bouquet',
+                    parseFloat(
+                      document.querySelector(
+                        `.product-management-card input[type="number"]`
+                      ).value
+                    ),
+                    parseInt(
+                      document.querySelector(
+                        `.product-management-card input[type="number"]:nth-child(3)`
+                      ).value,
+                      10
+                    ),
+                    parseInt(
+                      document.querySelector(
+                        `.product-management-card input[type="number"]:nth-child(5)`
+                      ).value,
+                      10
+                    )
+                  )
+                }
+                className="button-save"
+              >
+                Guardar Cambios
+              </Button>
+              <Button
+                onClick={() => handleDeleteBouquet(bouquet.id)}
+                className="button-delete"
+              >
+                Borrar Ramo
+              </Button>
+            </div>
           </div>
         ))}
       </div>

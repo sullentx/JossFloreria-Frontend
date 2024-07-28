@@ -131,8 +131,8 @@ const AdminDeliveryMan = () => {
               </label>
             </div>
             <div className="deliveryman-actions">
-              <button onClick={() => handleSaveDeliveryMan(index)}>Guardar</button>
-              <button onClick={() => handleDeleteDeliveryMan(index)}>Eliminar</button>
+              <Button onClick={() => handleSaveDeliveryMan(index)}>Guardar</Button>
+              <Button onClick={() => handleDeleteDeliveryMan(index)}>Eliminar</Button>
             </div>
           </div>
         ))

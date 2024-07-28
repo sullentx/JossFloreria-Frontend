@@ -14,7 +14,7 @@ const SearchPage = () => {
     try {
       const response = await fetch(`https://api.example.com/search?query=${query}`);
       const data = await response.json();
-      setResults(data.products); // Asumiendo que la respuesta tiene una propiedad "products"
+      setResults(data.products); 
       console.log('Resultados:', data.products);
     } catch (error) {
       console.error('Error al buscar:', error);

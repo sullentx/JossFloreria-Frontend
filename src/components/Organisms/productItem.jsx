@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import './productItem.css';
 import Input from '../Input/input';
+import Button from '../Button/button';
 
 const ProductItem = ({ isFlower, onSave, onDelete }) => {
   const token = localStorage.getItem('token');
@@ -31,6 +32,19 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
     }
   };
 
+  const handleTextChange = (setter) => (e) => {
+    const value = e.target.value;
+    if (/^[A-Za-z\s]*$/.test(value)) {
+      setter(value);
+    } else {
+      MySwal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Solo se permiten letras y espacios.',
+      });
+    }
+  };
+
   const handleSave = async () => {
     if (!name || !price || !quantity || (isFlower && !color) || (!isFlower && (!typeName || !flowerQuantity))) {
       MySwal.fire({
@@ -40,7 +54,6 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
       });
       return;
     }
-
     try {
       const url = isFlower
         ? 'https://ks60rj7q-3000.usw3.devtunnels.ms/api/flowers/flower'
@@ -87,7 +100,6 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
       if (!response.ok) {
         throw new Error(`Error HTTP! estado: ${response.status}`);
       }
-
       const result = await response.json();
       MySwal.fire({
         icon: 'success',
@@ -124,9 +136,8 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
           <Input 
             type="text" 
             value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            pattern="[A-Za-z\s]*" 
-            title="Solo letras y espacios" 
+            onChange={handleTextChange(setName)} 
+            required 
           />
         </label>
         {isFlower ? (
@@ -136,9 +147,8 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
               <Input 
                 type="text" 
                 value={color} 
-                onChange={(e) => setColor(e.target.value)} 
-                pattern="[A-Za-z\s]*" 
-                title="Solo letras y espacios" 
+                onChange={handleTextChange(setColor)} 
+                required 
               />
             </label>
           </>
@@ -149,9 +159,8 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
               <Input 
                 type="text" 
                 value={typeName} 
-                onChange={(e) => setTypeName(e.target.value)} 
-                pattern="[A-Za-z\s]*" 
-                title="Solo letras y espacios" 
+                onChange={handleTextChange(setTypeName)} 
+                required 
               />
             </label>
             <label>
@@ -159,33 +168,38 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
               <Input 
                 type="text" 
                 value={details} 
-                onChange={(e) => setDetails(e.target.value)} 
-                pattern="[A-Za-z\s]*" 
-                title="Solo letras y espacios" 
-              />
-            </label>
-            <label>
-              Cantidad de Flores:
-              <Input 
-                type="number" 
-                value={flowerQuantity} 
-                onChange={(e) => setFlowerQuantity(e.target.value)} 
-                min="0" 
-                step="1" 
-                title="Solo números positivos" 
+                onChange={handleTextChange(setDetails)} 
+                required 
               />
             </label>
           </>
         )}
         <label>
+          Cantidad de Flores:
+          <Input 
+            type="number" 
+            value={flowerQuantity} 
+            onChange={(e) => {
+              const value = Math.max(1, Number(e.target.value));
+              setFlowerQuantity(value);
+            }} 
+            min="1" 
+            step="1" 
+            required 
+          />
+        </label>
+        <label>
           Precio:
           <Input 
             type="number" 
             value={price} 
-            onChange={(e) => setPrice(e.target.value)} 
-            min="0" 
+            onChange={(e) => {
+              const value = Math.max(1, Number(e.target.value));
+              setPrice(value);
+            }} 
+            min="1" 
             step="0.01" 
-            title="Solo números positivos" 
+            required 
           />
         </label>
         <label>
@@ -193,10 +207,13 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
           <Input 
             type="number" 
             value={quantity} 
-            onChange={(e) => setQuantity(e.target.value)} 
-            min="0" 
+            onChange={(e) => {
+              const value = Math.max(1, Number(e.target.value));
+              setQuantity(value);
+            }} 
+            min="1" 
             step="1" 
-            title="Solo números positivos" 
+            required 
           />
         </label>
         {!isFlower && (
@@ -206,10 +223,10 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
           </label>
         )}
         <div className="product-actions">
-          <button onClick={handleSave}>
+          <Button onClick={handleSave}>
             Guardar
-          </button>
-          <button onClick={onDelete}>Eliminar Producto</button>
+          </Button>
+          <Button onClick={onDelete}>Eliminar Producto</Button>
         </div>
       </div>
     </div>

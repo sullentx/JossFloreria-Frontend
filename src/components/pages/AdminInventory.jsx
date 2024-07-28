@@ -9,27 +9,23 @@ const AdminInventory = () => {
   const MySwal = withReactContent(Swal);
   const [products, setProducts] = useState([]);
   const [isFlower, setIsFlower] = useState(true); 
-
+  const [currentProduct, setCurrentProduct] = useState(null);
 
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    // Cargar productos desde localStorage cuando el componente se monte
     const storedProducts = localStorage.getItem('products');
     if (storedProducts) {
       setProducts(JSON.parse(storedProducts));
     } else {
-      // Si no hay productos almacenados, obtener desde la API
       fetchProducts();
     }
   }, []);
 
   useEffect(() => {
-    // Guardar productos en localStorage cuando cambie el estado
     localStorage.setItem('products', JSON.stringify(products));
   }, [products]);
 
-  // Función para obtener productos desde la API
   const fetchProducts = async () => {
     try {
       const flowerResponse = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/flowers/flower', {
@@ -37,17 +33,14 @@ const AdminInventory = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-
       const bouquetResponse = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/bouquets', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-
       if (!flowerResponse.ok || !bouquetResponse.ok) {
         throw new Error('Error al obtener productos');
       }
-
       const flowerData = await flowerResponse.json();
       const bouquetData = await bouquetResponse.json();
 
@@ -63,17 +56,16 @@ const AdminInventory = () => {
     }
   };
 
- 
   const toggleProductType = () => {
     setIsFlower(!isFlower);
+    setCurrentProduct(isFlower ? { id: Date.now(), name: '', type_name: '', details: '', price: '', quantity: '', is_precreated: false, image_url: null } : { id: Date.now(), name: '', price: '', color: '', quantity: '', image_url: null });
   };
 
   const handleAddProduct = () => {
-    const newProduct = isFlower
+    setCurrentProduct(isFlower
       ? { id: Date.now(), name: '', price: '', color: '', quantity: '', image_url: null }
-      : { id: Date.now(), name: '', type_name: '', details: '', price: '', quantity: '', is_precreated: false, image_url: null };
-
-    setProducts([...products, newProduct]);
+      : { id: Date.now(), name: '', type_name: '', details: '', price: '', quantity: '', is_precreated: false, image_url: null }
+    );
   };
 
   const handleSaveProduct = (index, updatedProduct) => {
@@ -105,12 +97,23 @@ const AdminInventory = () => {
     <div className="admin-inventory">
       <div className="inventory-header">
         <Button type="button" onClick={toggleProductType}>
-          {isFlower ? 'Agregar Ramo' : 'Agregar Flor'}
-        </Button>
-        <Button type="button" onClick={handleAddProduct}>
           {isFlower ? 'Agregar Flor' : 'Agregar Ramo'}
         </Button>
       </div>
+
+      {currentProduct && (
+        <div className="form-container">
+          <h2>{isFlower ? 'Formulario de Flor' : 'Formulario de Ramo'}</h2>
+          {/* Aquí iría tu formulario para agregar o editar el producto */}
+          <ProductItem
+            key={currentProduct.id}
+            product={currentProduct}
+            isFlower={isFlower}
+            onSave={(updatedProduct) => handleSaveProduct(currentProduct.id, updatedProduct)}
+            onDelete={() => handleDeleteProduct(currentProduct.id)}
+          />
+        </div>
+      )}
 
       {products.length === 0 ? (
         <p className="empty-inventory">Inventario vacío</p>
@@ -119,7 +122,7 @@ const AdminInventory = () => {
           <ProductItem
             key={product.id}
             product={product}
-            isFlower={isFlower} // Pasar el estado de tipo de producto
+            isFlower={isFlower}
             onSave={(updatedProduct) => handleSaveProduct(index, updatedProduct)}
             onDelete={() => handleDeleteProduct(index)}
           />

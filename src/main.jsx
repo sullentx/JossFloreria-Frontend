@@ -21,6 +21,8 @@ import MakeYourBouquet from './components/pages/MakeYourBouquet';
 import AdminOrder from './components/pages/AdminOrder';
 import DeliveryOrder from './components/pages/DeliveryOrder';
 import DeliveryBackorders from './components/pages/DeliveryBackorders';
+import AdminPM from './components/pages/AdminPM';
+import AdminDeliveryCards from './components/pages/AdminDeliveryCards';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,8 @@ const router = createBrowserRouter([
       { path: 'custom', element: <MakeYourBouquet /> },
       { path: 'admin', element: <AdminPage /> },
       { path: 'delivery', element: <DeliveryPage /> },
+      { path: 'admin-pm', element: <AdminPM /> },
+      { path: 'admin-dl', element: <AdminDeliveryCards /> },
     ],
   },
 ]);

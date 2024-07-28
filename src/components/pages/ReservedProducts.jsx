@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../Button/button';
 import './ReservedProducts.css';
 
 const ReservedProducts = () => {
   const [products, setProducts] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -89,10 +92,24 @@ const ReservedProducts = () => {
     }
   };
 
+  const isDateBlocked = (date) => {
+    const today = new Date();
+    const differenceInTime = date.getTime() - today.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+    return differenceInDays < 3;
+  };
+
   const total = products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
 
   return (
     <div className="reserved-products">
+      <DatePicker
+        selected={selectedDate}
+        onChange={(date) => setSelectedDate(date)}
+        filterDate={isDateBlocked}
+        placeholderText="Selecciona una fecha"
+        className="date-picker"
+      />
       {products.map(product => (
         <div key={product.id} className="product-item">
           <img src={product.image} alt={product.name} className="product-image" />

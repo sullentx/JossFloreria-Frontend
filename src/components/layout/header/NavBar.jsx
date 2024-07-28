@@ -6,7 +6,7 @@ const NavBar = () => {
   const navItems = [
 
     { href: 'acerca-de-nosotros', label: 'Acerca de Nosotros' },
-    { href: 'Comprar-ahora', label: 'Aparta ahora' },
+    { href: 'apartar-ahora', label: 'Aparta ahora' },
     { href: '/', label: 'Inicio' },
     { href: 'catalog', label: 'Catalogo' },
     { href: 'custom', label: 'Arma tu Ramo' }

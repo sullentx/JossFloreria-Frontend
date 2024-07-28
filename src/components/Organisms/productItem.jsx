@@ -34,11 +34,9 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
 
   const handleTextChange = (setter) => (e) => {
     const value = e.target.value;
-    // Filtrar cualquier carácter que no sea letra o espacio
     if (/^[A-Za-z\s]*$/.test(value)) {
       setter(value);
     } else {
-      // Opcional: Puedes mostrar un mensaje de error aquí si lo deseas
       MySwal.fire({
         icon: 'error',
         title: 'Error',
@@ -190,7 +188,6 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
             required 
           />
         </label>
-
         <label>
           Precio:
           <Input 
@@ -205,7 +202,6 @@ const ProductItem = ({ isFlower, onSave, onDelete }) => {
             required 
           />
         </label>
-
         <label>
           Cantidad:
           <Input 

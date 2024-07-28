@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import './AdminDeliveryCards.css';
+import Button from '../Button/button'
 
 const AdminDeliveryCards = () => {
   const [deliveryMen, setDeliveryMen] = useState([]);
@@ -24,7 +25,6 @@ const AdminDeliveryCards = () => {
       const data = await response.json();
       console.log('Repartidores obtenidos:', data);
 
-      // Guardar todos los datos obtenidos sin filtrar
       setDeliveryMen(data);
     } catch (error) {
       console.error('Error:', error);
@@ -84,12 +84,12 @@ const AdminDeliveryCards = () => {
               <p>Correo Electrónico: {deliveryMan.email}</p>
               <p>Número de Teléfono: {deliveryMan.phone_number}</p>
               <p>Dirección: {deliveryMan.address}</p>
-              <button
+              <Button
                 onClick={() => handleDeleteDeliveryMan(deliveryMan.id)}
                 className="delete-button"
               >
-                Borrar Repartidor
-              </button>
+                Borrar
+              </Button>
             </div>
           ))
         ) : (

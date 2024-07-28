@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import Button from '../Button/button';
 import Input from '../Input/input';
 import './loginForm.css';
@@ -38,7 +38,7 @@ const LoginForm = () => {
       console.log('Success:', data);
 
       if (token) {
-        const decodedToken = jwt_decode(token);
+        const decodedToken = jwtDecode(token);
         const userRole = decodedToken.role_id || decodedToken.role;
 
         console.log('Role:', userRole);

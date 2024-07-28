@@ -11,7 +11,7 @@ const DeliveryManItem = ({ deliveryMan, onSave, onDelete }) => {
   const [password, setPassword] = useState(deliveryMan.password);
   const MySwal = withReactContent(Swal);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!fullName || !phoneNumber || !username || !password) {
       MySwal.fire({
         icon: 'error',
@@ -21,7 +21,82 @@ const DeliveryManItem = ({ deliveryMan, onSave, onDelete }) => {
       return;
     }
 
-    onSave({ ...deliveryMan, fullName, phoneNumber, username, password });
+    try {
+      const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/Api//deliverymen', {
+        method: deliveryMan.id ? 'PUT' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Agrega el token de autenticación si es necesario
+        },
+        body: JSON.stringify({
+          id: deliveryMan.id, // solo si es actualización
+          fullName,
+          phoneNumber,
+          username,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al guardar los datos del repartidor');
+      }
+
+      const data = await response.json();
+      onSave(data); // Llamada al callback onSave con los datos actualizados
+      MySwal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'Datos del repartidor guardados con éxito.',
+      });
+    } catch (error) {
+      console.error('Error al guardar los datos del repartidor:', error);
+      MySwal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: error.message,
+      });
+    }
+  };
+
+  const handleDelete = async () => {
+    MySwal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`URL_DE_TU_API/deliverymen/${deliveryMan.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`, // Agrega el token de autenticación si es necesario
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error('Error al eliminar el repartidor');
+          }
+
+          onDelete(deliveryMan.id); // Llamada al callback onDelete con el id del repartidor eliminado
+          MySwal.fire(
+            'Eliminado!',
+            'El repartidor ha sido eliminado.',
+            'success'
+          );
+        } catch (error) {
+          console.error('Error al eliminar el repartidor:', error);
+          MySwal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -45,7 +120,7 @@ const DeliveryManItem = ({ deliveryMan, onSave, onDelete }) => {
         </label>
         <div className="deliveryman-actions">
           <button onClick={handleSave}>Guardar</button>
-          <button onClick={onDelete}>Eliminar Repartidor</button>
+          <button onClick={handleDelete}>Eliminar Repartidor</button>
         </div>
       </div>
     </div>

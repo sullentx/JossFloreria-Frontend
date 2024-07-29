@@ -81,4 +81,9 @@
   cursor: pointer;
   position: relative;
   transition: transform 0.3s ease;
+
+}
+
+.delivery-header-icon:hover {
+  transform: scale(1.1);
 }

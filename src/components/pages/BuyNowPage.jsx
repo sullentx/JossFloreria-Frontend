@@ -52,7 +52,7 @@ const BuyNowPage = () => {
   return (
     <div className="buy-now-page">
       {loading ? (
-        <p>Loading products...</p>
+        <p>Cargando productos...</p>
       ) : products.length > 0 ? (
         products.map(product => (
           <div key={product.id} className="product-card">
@@ -65,7 +65,7 @@ const BuyNowPage = () => {
           </div>
         ))
       ) : (
-        <p>No products available with status ID 2.</p>
+        <p>No hay productos por confirmar.</p>
       )}
     </div>
   );

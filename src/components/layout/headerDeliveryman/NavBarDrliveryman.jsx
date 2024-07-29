@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Asegúrate de importar Link
 import NavItem from '../header/NavItem';
+import { Link } from 'react-router-dom';
 import './NavBar.css'; 
 
 const NavBarDeliveryman = () => {
@@ -23,6 +24,7 @@ const NavBarDeliveryman = () => {
       </div>
       <div className="delivery-header-icons">
         <Link to="/login">
+      <Link to="/login">
           <img src="/src/assets/icons/login_N.png" alt="Inventario" className="delivery-header-icon" />
         </Link>
       </div>

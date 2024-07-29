@@ -91,7 +91,7 @@ const ReservedProducts = () => {
         body: JSON.stringify(requestData)
       });
 
-      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/${id}/status`, {
+      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/${id}/apartar`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const ReservedProducts = () => {
           navigate('/apartar-ahora');
         });
       } else {
-        console.error('Error en la respuesta del servidor:', response.status, await response.text());
+        console.error('Error en la respuesta del servidor:', response.apartar, await response.text());
         Swal.fire('Error!', 'Hubo un problema al apartar el producto.', 'error');
       }
     } catch (error) {
@@ -129,9 +129,19 @@ const ReservedProducts = () => {
               <Button className="button-cancel" onClick={() => handleCancelProduct(product.id)}>Cancelar apartado</Button>
               <Button className="button-buy" onClick={() => handleBuyProduct(product.id)}>Apartar</Button>
             </div>
+      {products.map(product => (
+        <div key={product.id} className="product-item">
+          <img src={product.image_url} alt={product.name} className="product-image" />
+          <div className="product-details">
+            <p>Nombre: {product.name}</p>
+            <p>Precio: {product.price}</p>
+            <p>Cantidad: {product.quantity}</p>
+            <Button className="button-cancel" onClick={() => handleCancelProduct(product.id)}>Cancelar apartado</Button>
+            <Button className="button-buy" onClick={() => handleBuyProduct(product.id)}>Apartar</Button>
           </div>
-        ))
-      )}
+        </div>
+      ))}
+      {/* Se ha eliminado la sección del total del carrito */}
     </div>
   );
 };

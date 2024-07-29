@@ -66,3 +66,19 @@
   transform-origin: left;
   transform: scaleX(1);
 }
+
+.delivery-header-icons {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.delivery-header-icon {
+  margin-left: 15px;
+  width: 24px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease;
+}

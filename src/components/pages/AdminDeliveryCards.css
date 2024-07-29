@@ -17,12 +17,11 @@
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(87, 12, 172, 0.1);
     padding: 20px;
     width: 300px;
-    text-align: left;
-    position: relative; /* Necesario para botones absolutos */
-    padding-bottom: 60px; /* Ajuste de espacio para el botón */
+    text-align: justify;
+    padding-bottom: 60px; 
   }
  
   
@@ -40,6 +39,7 @@
     padding-bottom: 10px;
     border-radius: 5px;
     cursor: pointer;
+    align-items: center;
     transition: background-color 0.3s;
   }
   

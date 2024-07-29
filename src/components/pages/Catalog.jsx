@@ -140,9 +140,9 @@ const Catalog = () => {
     }
 
     const bouquetId = Number(product.id);
-    const quantity = 1; // Puedes ajustar la cantidad según tus necesidades
+    const quantity = 1; 
     const statusId = 1;
-    const deliveryManId = 1; // Puedes ajustar el ID del repartidor según tus necesidades
+    const deliveryManId = 1;
     const requestDate = new Date().toISOString();
 
     const requestBody = {
@@ -201,7 +201,7 @@ const Catalog = () => {
         products.map((product) => (
           <div key={product.id} className="product-card">
             <img
-              src={product.image_url ? `https://ks60rj7q-3000.usw3.devtunnels.ms/${product.image_url}` : ''}
+              src={product.image_url}
               alt={product.name}
               className="product-image"
             />

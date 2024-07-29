@@ -33,7 +33,7 @@ const FavouriteProducts = () => {
 
         if (response.ok) {
           const favorites = await response.json();
-          console.log('Favorites fetched:', favorites); // Debug line
+          console.log('Favorites fetched:', favorites); 
           setProducts(favorites);
         } else {
           console.error('Error al obtener favoritos');
@@ -91,7 +91,11 @@ const FavouriteProducts = () => {
       {products.length > 0 ? (
         products.map((product) => (
           <div key={product.favorite_id} className="product-item">
-            <img src="/src/assets/icons/favourites.png" alt="Favorito" className="favourite-icon" />
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="product-image"
+            />
             <div className="product-details">
               <p>Nombre: {product.name}</p>
               <p>Precio: ${product.price}</p>

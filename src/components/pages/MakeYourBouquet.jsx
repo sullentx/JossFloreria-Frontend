@@ -216,7 +216,10 @@ const MakeYourBouquet = () => {
 
       {selection && (
         <div className="add-to-cart-button">
-          <Button type="button" onClick={handleAddToCart}>
+          <Button type="button" onClick={
+          ({
+            title: 'Proximamente...',
+          })}>
             Agregar al carrito
           </Button>
         </div>

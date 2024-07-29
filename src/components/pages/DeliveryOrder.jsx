@@ -34,7 +34,7 @@ const DeliveryOrder = () => {
 
   return (
     <div className="delivery-order-container">
-      <h1 className="delivery-order-title">Rosas</h1>
+      <h1 className="delivery-order-title">Status</h1>
       <div className="order-content">
         <img src="/path/to/your/image.jpg" alt="Producto" className="product-image" />
         <div className="order-details">

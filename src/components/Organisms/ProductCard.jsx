@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
                 throw new Error('No se encontró un token de autenticación.');
             }
 
-            const response = await fetch(`https://api.tu-dominio.com/requests/${product.id}/status`, {
+            const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/requests/${product.id}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const ProductCard = ({ product }) => {
                 <img src={product.image} alt={product.name} className="product-image" />
             </div>
             <div className="product-right">
-                <p className="product-name"><span className="label">Ramo:</span> {product.name}</p> {}
+                <p className="product-name"><span className="label">Ramo:</span> {product.name}</p>
                 <p className="product-price"><span className="label">Price:</span> {product.price}</p>
                 <div className="product-date-picker">
                     <label>
@@ -93,7 +93,13 @@ const ProductCard = ({ product }) => {
                 <div className="product-quantity">
                     <label>
                         <span className="label">Cantidad:</span>
-                        <p>{quantity}</p> {}
+                        <input
+                            type="number"
+                            value={quantity}
+                            onChange={handleQuantityChange}
+                            min="1"
+                            className="quantity-input"
+                        />
                     </label>
                 </div>
                 <Button text="Comprar" onClick={handleBuy}>Comprar</Button>

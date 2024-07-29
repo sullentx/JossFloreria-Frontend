@@ -5,11 +5,11 @@ import './AdminOrder.css';
 
 const AdminOrder = () => {
   const location = useLocation();
-  const { order } = location.state || {}; // Obtener los datos del pedido desde el estado de navegación
+  const { order } = location.state || {}; 
   const [status, setStatus] = useState(order ? order.status : null);
 
   const handleStatusChange = async (newStatus) => {
-    // Mapear los estados a sus respectivos IDs
+    
     const statusIds = {
       'Elaborado': 3,
       'En Camino': 4,

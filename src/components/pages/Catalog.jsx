@@ -10,6 +10,20 @@ const Catalog = () => {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
+        showConfirmButton: false,
+        timer: 1300,
+      }).then(() => {
+        window.location.href = '/login';
+      });
+      return;
+    }
+
     const fetchProducts = async () => {
       try {
         const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/bouquets?is_precreated=true');
@@ -30,11 +44,6 @@ const Catalog = () => {
 
     const fetchFavourites = async () => {
       try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('No se encontró un token de autenticación.');
-        }
-
         const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites', {
           method: 'GET',
           headers: {
@@ -48,7 +57,7 @@ const Catalog = () => {
         }
 
         const data = await response.json();
-        setFavourites(data.map(fav => fav.bouquetId)); 
+        setFavourites(data.map(fav => fav.bouquetId));
       } catch (error) {
         console.error('Error al obtener favoritos:', error);
         Swal.fire({
@@ -74,7 +83,7 @@ const Catalog = () => {
     }
 
     try {
-      const bouquetId = Number(product.id); 
+      const bouquetId = Number(product.id);
       if (isNaN(bouquetId)) {
         throw new Error('El ID del producto no es un número válido.');
       }
@@ -131,9 +140,9 @@ const Catalog = () => {
     }
 
     const bouquetId = Number(product.id);
-    const quantity = 1; // Puedes ajustar la cantidad según tus necesidades
+    const quantity = 1; 
     const statusId = 1;
-    const deliveryManId = 1; // Puedes ajustar el ID del repartidor según tus necesidades
+    const deliveryManId = 1;
     const requestDate = new Date().toISOString();
 
     const requestBody = {
@@ -191,10 +200,10 @@ const Catalog = () => {
       ) : (
         products.map((product) => (
           <div key={product.id} className="product-card">
-            <img 
-              src={product.image_url ? `https://ks60rj7q-3000.usw3.devtunnels.ms/${product.image_url}` : ''} 
-              alt={product.name} 
-              className="product-image" 
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="product-image"
             />
             <div className="product-details">
               <h3>{product.name}</h3>

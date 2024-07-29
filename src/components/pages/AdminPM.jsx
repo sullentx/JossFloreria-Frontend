@@ -73,7 +73,8 @@ const AdminPM = () => {
     fetchBouquets();
   }, []);
 
-  const handleUpdate = async (id, type, updatedPrice, updatedQuantity, updatedFlowerQuantity) => {
+  const handleUpdate = async (id, type) => {
+    const product = type === 'flower' ? flowers.find(flower => flower.id === id) : bouquets.find(bouquet => bouquet.id === id);
     const url =
       type === 'flower'
         ? `https://ks60rj7q-3000.usw3.devtunnels.ms/api/flowers/flower/${id}`
@@ -87,9 +88,9 @@ const AdminPM = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          price: updatedPrice,
-          quantity: updatedQuantity,
-          ...(type === 'bouquet' && { flower_quantity: updatedFlowerQuantity }),
+          price: product.price,
+          quantity: product.quantity,
+          ...(type === 'bouquet' && { flower_quantity: product.flower_quantity }),
         }),
       });
 
@@ -107,15 +108,13 @@ const AdminPM = () => {
       if (type === 'flower') {
         setFlowers((prevFlowers) =>
           prevFlowers.map((flower) =>
-            flower.id === id ? { ...flower, price: updatedPrice, quantity: updatedQuantity } : flower
+            flower.id === id ? { ...flower, ...updatedProduct } : flower
           )
         );
       } else {
         setBouquets((prevBouquets) =>
           prevBouquets.map((bouquet) =>
-            bouquet.id === id
-              ? { ...bouquet, price: updatedPrice, quantity: updatedQuantity, flower_quantity: updatedFlowerQuantity }
-              : bouquet
+            bouquet.id === id ? { ...bouquet, ...updatedProduct } : bouquet
           )
         );
       }
@@ -201,6 +200,27 @@ const AdminPM = () => {
     }
   };
 
+  const handleInputChange = (id, type, field, value) => {
+    if (isNaN(value)) {
+      console.warn(`Invalid value: ${value}`);
+      return;
+    }
+
+    if (type === 'flower') {
+      setFlowers((prevFlowers) =>
+        prevFlowers.map((flower) =>
+          flower.id === id ? { ...flower, [field]: value } : flower
+        )
+      );
+    } else {
+      setBouquets((prevBouquets) =>
+        prevBouquets.map((bouquet) =>
+          bouquet.id === id ? { ...bouquet, [field]: value } : bouquet
+        )
+      );
+    }
+  };
+
   return (
     <div className="admin-pm-container">
       <h2>Gestión de Flores</h2>
@@ -214,20 +234,13 @@ const AdminPM = () => {
             />
             <h3>{flower.name}</h3>
             <p>Color: {flower.color}</p>
-            <p>Precio: ${flower.price}</p>
-            <p>Cantidad: {flower.quantity}</p>
             <label>
               Precio:
               <input
                 type="number"
-                defaultValue={flower.price}
-                onBlur={(e) =>
-                  handleUpdate(
-                    flower.id,
-                    'flower',
-                    parseFloat(e.target.value),
-                    flower.quantity
-                  )
+                value={flower.price}
+                onChange={(e) =>
+                  handleInputChange(flower.id, 'flower', 'price', parseFloat(e.target.value))
                 }
               />
             </label>
@@ -235,36 +248,15 @@ const AdminPM = () => {
               Cantidad:
               <input
                 type="number"
-                defaultValue={flower.quantity}
-                onBlur={(e) =>
-                  handleUpdate(
-                    flower.id,
-                    'flower',
-                    flower.price,
-                    parseInt(e.target.value, 10)
-                  )
+                value={flower.quantity}
+                onChange={(e) =>
+                  handleInputChange(flower.id, 'flower', 'quantity', parseInt(e.target.value, 10))
                 }
               />
             </label>
             <div className="button-container">
               <Button
-                onClick={() =>
-                  handleUpdate(
-                    flower.id,
-                    'flower',
-                    parseFloat(
-                      document.querySelector(
-                        `.product-management-card input[type="number"]`
-                      ).value
-                    ),
-                    parseInt(
-                      document.querySelector(
-                        `.product-management-card input[type="number"]:nth-child(3)`
-                      ).value,
-                      10
-                    )
-                  )
-                }
+                onClick={() => handleUpdate(flower.id, 'flower')}
                 className="button-save"
               >
                 Guardar Cambios
@@ -290,22 +282,13 @@ const AdminPM = () => {
               className="product-image"
             />
             <h3>{bouquet.name}</h3>
-            <p>Precio: ${bouquet.price}</p>
-            <p>Cantidad: {bouquet.quantity}</p>
-            <p>Cantidad de Flores: {bouquet.flower_quantity}</p>
             <label>
               Precio:
               <input
                 type="number"
-                defaultValue={bouquet.price}
-                onBlur={(e) =>
-                  handleUpdate(
-                    bouquet.id,
-                    'bouquet',
-                    parseFloat(e.target.value),
-                    bouquet.quantity,
-                    bouquet.flower_quantity
-                  )
+                value={bouquet.price}
+                onChange={(e) =>
+                  handleInputChange(bouquet.id, 'bouquet', 'price', parseFloat(e.target.value))
                 }
               />
             </label>
@@ -313,15 +296,9 @@ const AdminPM = () => {
               Cantidad:
               <input
                 type="number"
-                defaultValue={bouquet.quantity}
-                onBlur={(e) =>
-                  handleUpdate(
-                    bouquet.id,
-                    'bouquet',
-                    bouquet.price,
-                    parseInt(e.target.value, 10),
-                    bouquet.flower_quantity
-                  )
+                value={bouquet.quantity}
+                onChange={(e) =>
+                  handleInputChange(bouquet.id, 'bouquet', 'quantity', parseInt(e.target.value, 10))
                 }
               />
             </label>
@@ -329,43 +306,15 @@ const AdminPM = () => {
               Cantidad de Flores:
               <input
                 type="number"
-                defaultValue={bouquet.flower_quantity}
-                onBlur={(e) =>
-                  handleUpdate(
-                    bouquet.id,
-                    'bouquet',
-                    bouquet.price,
-                    bouquet.quantity,
-                    parseInt(e.target.value, 10)
-                  )
+                value={bouquet.flower_quantity}
+                onChange={(e) =>
+                  handleInputChange(bouquet.id, 'bouquet', 'flower_quantity', parseInt(e.target.value, 10))
                 }
               />
             </label>
             <div className="button-container">
               <Button
-                onClick={() =>
-                  handleUpdate(
-                    bouquet.id,
-                    'bouquet',
-                    parseFloat(
-                      document.querySelector(
-                        `.product-management-card input[type="number"]`
-                      ).value
-                    ),
-                    parseInt(
-                      document.querySelector(
-                        `.product-management-card input[type="number"]:nth-child(3)`
-                      ).value,
-                      10
-                    ),
-                    parseInt(
-                      document.querySelector(
-                        `.product-management-card input[type="number"]:nth-child(5)`
-                      ).value,
-                      10
-                    )
-                  )
-                }
+                onClick={() => handleUpdate(bouquet.id, 'bouquet')}
                 className="button-save"
               >
                 Guardar Cambios

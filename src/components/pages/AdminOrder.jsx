@@ -1,9 +1,20 @@
+
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './AdminOrder.css';
 
 const AdminOrder = () => {
+  const [orders, setOrders] = useState([]);
+  
+  useEffect(() => {
+    fetch('https://ks60rj7q-3000.usw3.devtunnels.m/api/orders')
+      .then(response => response.json())
+      .then(data => setOrders(data));
+  }, []);
+
+  const handleStatusChange = (orderId, newStatus) => {
+    if (newStatus === 'Terminado') {
   const location = useLocation();
   const { order } = location.state || {}; 
   const [status, setStatus] = useState(order ? order.status : null);
@@ -33,6 +44,23 @@ const AdminOrder = () => {
       showCancelButton: true,
       confirmButtonText: 'Sí',
       cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://ks60rj7q-3000.usw3.devtunnels.m/api/orders/${orderId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus }),
+        })
+          .then(response => response.json())
+          .then((updatedOrder) => {
+            setOrders(orders.map((order) => (order.id === orderId ? updatedOrder : order)));
+            Swal.fire({
+              icon: 'success',
+              title: `El estado ha cambiado a "${newStatus}".`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
     });
 
     if (confirmResult.isConfirmed) {
@@ -80,6 +108,23 @@ const AdminOrder = () => {
 
   return (
     <div className="admin-order-container">
+      <h1 className="admin-order-title">Status de pedidos</h1>
+      <div className="admin-order-content">
+        {orders.map((order) => (
+          <div key={order.id} className="admin-order-details">
+            <p>Nombre del Cliente: {order.customerName}</p>
+            <p>Precio del pedido: {order.price}</p>
+            <p>Fecha elegida: {order.date}</p>
+            <p>Dirección del Cliente: {order.address}</p>
+            <p>Teléfono del Cliente: {order.phone}</p>
+            <p>Estatus: {order.status}</p>
+            <div className="admin-status-buttons">
+              {statuses.map((item) => (
+                <button
+                  key={item}
+                  className={`admin-status-button ${item.toLowerCase().replace(' ', '-')}`}
+                  onClick={() => handleStatusChange(order.id, item)}
+                  disabled={order.status === 'Terminado' || order.status === item}
       <h1 className="admin-order-title">Detalles del Pedido</h1>
       {order ? (
         <div className="admin-order-content">
@@ -104,6 +149,8 @@ const AdminOrder = () => {
               ))}
             </div>
           </div>
+        ))}
+      </div>
         </div>
       ) : (
         <p>Cargando detalles del pedido...</p>

@@ -9,6 +9,7 @@ const DeliveryBackorders = () => {
   useEffect(() => {
     const fetchBackorders = async () => {
       try {
+        const response = await fetch('/api/backorders'); 
         const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/pendientes', { 
           method: 'GET',
           headers: {
@@ -16,7 +17,6 @@ const DeliveryBackorders = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`, 
           },
         });
-
         if (response.ok) {
           const data = await response.json();
           const filteredBackorders = data.filter(order =>

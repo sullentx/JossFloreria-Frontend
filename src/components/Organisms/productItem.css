@@ -4,10 +4,10 @@
   align-items: center;
   border: 1px solid #ccc;
   padding: 10px 50px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 80%;
+  max-width: 450px;
   text-align: left;
-
 }
 
 .product-image {

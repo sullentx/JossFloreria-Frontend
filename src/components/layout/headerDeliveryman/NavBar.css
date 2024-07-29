@@ -66,6 +66,7 @@
   transform-origin: left;
   transform: scaleX(1);
 }
+
 .delivery-header-icons {
   display: flex;
   align-items: center;
@@ -80,6 +81,7 @@
   cursor: pointer;
   position: relative;
   transition: transform 0.3s ease;
+
 }
 
 .delivery-header-icon:hover {

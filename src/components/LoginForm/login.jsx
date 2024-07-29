@@ -4,14 +4,13 @@ import jwtDecode from 'jwt-decode';
 import Button from '../Button/button';
 import Input from '../Input/input';
 import './loginForm.css';
+import Swal from 'sweetalert2';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +34,7 @@ const LoginForm = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('role', data.role);
 
-      console.log('Success:', data);
+      Swal.fire('Bienvenido!');
 
       if (token) {
         const decodedToken = jwtDecode(token);
@@ -66,29 +65,39 @@ const LoginForm = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate('/login', { replace: true });
+  };
+
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
-      <Input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        type="password"
-        name="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button type="submit" disabled={loading}>
-        {loading ? 'Cargando...' : 'Login'}
-      </Button>
-      <p className="sign-up-prompt">
-        ¿No tienes cuenta todavía? <Link to="/sign-in" className="sign-up-link">Crea una ahora</Link>
-      </p>
-    </form>
+    <div>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <Input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Cargando...' : 'Login'}
+        </Button>
+
+        <p className="sign-up-prompt">
+          ¿No tienes cuenta todavía? <Link to="/sign-in" className="sign-up-link">Crea una ahora</Link>
+        </p>
+        <Button onClick={handleLogout}>Logout</Button>
+      </form>
+    </div>
   );
 };
 

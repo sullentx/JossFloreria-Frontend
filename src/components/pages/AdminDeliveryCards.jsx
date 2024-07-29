@@ -42,7 +42,7 @@ const AdminDeliveryCards = () => {
 
   const handleDeleteDeliveryMan = async (id) => {
     try {
-      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer/delivery/${id}`, {
+      const response = await fetch(`https://ks60rj7q-3000.usw3.devtunnels.ms/api/customer/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

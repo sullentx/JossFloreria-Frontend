@@ -9,6 +9,7 @@ const AdminBackorders = () => {
   useEffect(() => {
     const fetchBackorders = async () => {
       try {
+        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests'); 
         const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/', { 
           method: 'GET',
           headers: {

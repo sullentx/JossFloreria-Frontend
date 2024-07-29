@@ -7,6 +7,20 @@ const FavouriteProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
+        showConfirmButton: false,
+        timer: 1300,
+      }).then(() => {
+        window.location.href = '/login';
+      });
+      return;
+    }
+
     const fetchFavorites = async () => {
       try {
         const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/favorites', {
@@ -19,7 +33,7 @@ const FavouriteProducts = () => {
 
         if (response.ok) {
           const favorites = await response.json();
-          console.log('Favorites fetched:', favorites); // Debug line
+          console.log('Favorites fetched:', favorites); 
           setProducts(favorites);
         } else {
           console.error('Error al obtener favoritos');
@@ -30,6 +44,7 @@ const FavouriteProducts = () => {
     };
 
     fetchFavorites();
+  
   }, []);
 
   const handleRemoveFavourite = async (favorite_id) => {
@@ -76,7 +91,11 @@ const FavouriteProducts = () => {
       {products.length > 0 ? (
         products.map((product) => (
           <div key={product.favorite_id} className="product-item">
-            <img src="/src/assets/icons/favourites.png" alt="Favorito" className="favourite-icon" />
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="product-image"
+            />
             <div className="product-details">
               <p>Nombre: {product.name}</p>
               <p>Precio: ${product.price}</p>

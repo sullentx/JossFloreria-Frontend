@@ -1,7 +1,7 @@
 // components/Header.js
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import NavBar from './NavBar'; // Importa el componente NavBar
+import NavBar from './NavBar'; 
 import './index.css';
 
 const Header = () => {
@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-logo">
-        <h1>Joss Floreria</h1>
+        <h1>Joss Florería</h1>
       </div>
       <NavBar />
       <div className="header-icons" data-animation="diagonal">

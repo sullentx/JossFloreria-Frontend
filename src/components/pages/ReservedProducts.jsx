@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
 import Button from '../Button/button';
 import './ReservedProducts.css';
@@ -9,6 +9,20 @@ const ReservedProducts = () => {
   const navigate = useNavigate(); 
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Inicia sesión',
+        text: 'Debes iniciar sesión para acceder a esta funcionalidad.',
+        showConfirmButton: false,
+        timer: 1300,
+      }).then(() => {
+        window.location.href = '/login';
+      });
+      return;
+    }
+
     const fetchProducts = async () => {
       const id = 1; 
       try {
@@ -24,8 +38,7 @@ const ReservedProducts = () => {
       } catch (error) {
         console.error('Error al obtener productos:', error);
       }
-    };
-
+    }
     fetchProducts();
   }, []);
 
@@ -90,7 +103,6 @@ const ReservedProducts = () => {
       if (response.ok) {
         console.log('Respuesta del servidor:', await response.json());
         Swal.fire('¡Apartado realizado!', 'Has apartado el producto.', 'success').then(() => {
-
           navigate('/apartar-ahora');
         });
       } else {
@@ -105,6 +117,18 @@ const ReservedProducts = () => {
 
   return (
     <div className="reserved-products">
+      {products.length === 0 ? (
+        <p>Carrito de apartados vacío</p>
+      ) : (
+        products.map(product => (
+          <div key={product.id} className="product-item">
+            <div className="product-details">
+              <p>Nombre: {product.name}</p>
+              <p>Precio: {product.price}</p>
+              <p>Cantidad: {product.quantity}</p>
+              <Button className="button-cancel" onClick={() => handleCancelProduct(product.id)}>Cancelar apartado</Button>
+              <Button className="button-buy" onClick={() => handleBuyProduct(product.id)}>Apartar</Button>
+            </div>
       {products.map(product => (
         <div key={product.id} className="product-item">
           <img src={product.image_url} alt={product.name} className="product-image" />

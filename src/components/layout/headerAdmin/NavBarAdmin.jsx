@@ -9,6 +9,7 @@ const NavBarAdmin = () => {
     { href: '/admin-pm', label: 'Inventario' },
     { href: '/admin-deliveryman', label: 'Administrar Repartidores' },
     { href: '/admin-dl', label: 'Repartidores' },
+    {href : '/admin-order', label:'Status de pedidos'}
   ];
 
   return (
@@ -27,7 +28,6 @@ const NavBarAdmin = () => {
       <Link to="/login">
           <img src="/src/assets/icons/login_N.png" alt="Inventario" className="admin-header-icon" />
         </Link>
-
         <Link to="/admin-backorders">
           <img src="/src/assets/icons/notificacion.png" alt="Inventario" className="admin-header-icon" />
         </Link>

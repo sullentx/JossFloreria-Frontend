@@ -9,10 +9,20 @@ const AdminBackorders = () => {
   useEffect(() => {
     const fetchBackorders = async () => {
       try {
-        const response = await fetch('/api/backorders'); // URL de la API para obtener los pedidos pendientes
+        const response = await fetch('https://ks60rj7q-3000.usw3.devtunnels.ms/api/requests/', { 
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`, 
+          },
+        });
+
         if (response.ok) {
           const data = await response.json();
-          setBackorders(data);
+          const filteredBackorders = data.filter(order =>
+            [2, 3, 4].includes(order.status_id)
+          );
+          setBackorders(filteredBackorders);
         } else {
           console.error('Error al obtener pedidos pendientes:', response.statusText);
         }
@@ -24,8 +34,8 @@ const AdminBackorders = () => {
     fetchBackorders();
   }, []);
 
-  const handleNotificationClick = (orderId) => {
-    navigate(`/order-details/${orderId}`);
+  const handleNotificationClick = (order) => {
+    navigate('/admin-order', { state: { order } });
   };
 
   return (
@@ -34,15 +44,14 @@ const AdminBackorders = () => {
         <div 
           key={order.id} 
           className="notification-card" 
-          onClick={() => handleNotificationClick(order.id)}
+          onClick={() => handleNotificationClick(order)}
         >
           <div className="icon-container">
             <img src="/src/assets/icons/alert.png" alt="Urgent" className="urgent-icon" />
           </div>
           <div className="notification-details">
-            <p>Nombre del Cliente: {order.clientName}</p>
-            <p>Fecha del Pedido: {order.orderDate}</p>
-            <p>Fecha de Entrega: {order.deliveryDate}</p>
+            <p>Fecha de Creación: {order.created_at}</p>
+            <p>Fecha de Entrega: {order.request_date}</p>
           </div>
         </div>
       ))}

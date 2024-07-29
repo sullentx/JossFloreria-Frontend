@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Para la redirección
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Button from '../Button/button';
 import './ReservedProducts.css';
 
 const ReservedProducts = () => {
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate(); // Hook para la redirección
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchProducts = async () => {

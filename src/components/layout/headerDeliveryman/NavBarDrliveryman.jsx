@@ -1,5 +1,6 @@
 import React from 'react';
 import NavItem from '../header/NavItem';
+import { Link } from 'react-router-dom';
 import './NavBar.css'; 
 
 const NavBarDeliveryman = () => {
@@ -17,6 +18,11 @@ const NavBarDeliveryman = () => {
             <NavItem key={index} href={item.href} label={item.label} />
           ))}
         </ul>
+      </div>
+      <div className="delivery-header-icons">
+      <Link to="/login">
+          <img src="/src/assets/icons/login_N.png" alt="Inventario" className="delivery-header-icon" />
+        </Link>
       </div>
     </nav>
   );
